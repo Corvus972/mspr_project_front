@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mspr_project/repository/models/product.dart';
 
 class Search extends SearchDelegate {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mspr_project/repository/models/product.dart';
+import 'package:mspr_project/models/product.dart';
 
 class Search extends SearchDelegate {
   @override
@@ -35,32 +35,32 @@ class Search extends SearchDelegate {
     );
   }
 
-  final List<String> listExample;
-  Search(this.listExample);
+  final List<Product> listProduct;
+  Search(this.listProduct);
 
-  List<String> recentList = ["Text 4", "Text 3"];
+  List<Product> recentList = [];
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> suggestionList = [];
+    List<Product> suggestionList = [];
     query.isEmpty
         ? suggestionList = recentList //In the true case
-        : suggestionList.addAll(listExample.where(
+        : suggestionList.addAll(listProduct.where(
             // In the false case
             (element) =>
-                element.contains(query) ||
-                element.toLowerCase().startsWith(query)));
+                element.productName.contains(query) ||
+                element.productName.toLowerCase().startsWith(query)));
 
     return ListView.builder(
       itemCount: suggestionList.length,
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(
-            suggestionList[index],
+            suggestionList[index].productName,
           ),
           leading: query.isEmpty ? Icon(Icons.access_time) : SizedBox(),
           onTap: () {
-            selectedResult = suggestionList[index];
+            selectedResult = suggestionList[index].productName;
             showResults(context);
           },
         );

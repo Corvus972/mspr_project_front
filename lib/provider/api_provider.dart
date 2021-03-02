@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' show Client;
-import 'package:mspr_project/repository/models/product.dart';
+import 'package:mspr_project/models/product.dart';
 
 class ApiProvider {
   Client client = Client();

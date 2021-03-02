@@ -1,5 +1,5 @@
 import 'package:mspr_project/provider/api_provider.dart';
-import 'package:mspr_project/repository/models/product.dart';
+import 'package:mspr_project/models/product.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProductRepository {

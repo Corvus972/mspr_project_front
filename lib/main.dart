@@ -8,7 +8,23 @@ void main() async {
   runApp(FlutterCommerceApp());
 }
 
-class SimpleBlocDelegate extends BlocObserver {
+class FlutterCommerceApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: FlutterCommerceConfig.of(context),
+      // home: SplashScreen(),
+      // We use routeName so that we dont need to remember the name
+      initialRoute: '/',
+      routes: routes,
+    );
+  }
+}
+
+/* class SimpleBlocDelegate extends BlocObserver {
   @override
   void onEvent(Bloc bloc, Object event) {
     super.onEvent(bloc, event);
@@ -34,8 +50,7 @@ class FlutterCommerceApp extends StatelessWidget {
     return MaterialApp(
         title: "E-commerce",
         theme: FlutterCommerceConfig.of(context),
-         routes: _registerRoutes()
-        );
+        routes: _registerRoutes());
   }
 
   Map<String, WidgetBuilder> _registerRoutes() {
@@ -43,4 +58,4 @@ class FlutterCommerceApp extends StatelessWidget {
       FlutterCommerceRoutes.home: (context) => HomePage(),
     };
   }
-}
+} */

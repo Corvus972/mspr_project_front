@@ -5,3 +5,6 @@ flutter packages get
 ###api
 https://flutter.dev/docs/cookbook/networking/fetch-data
 https://github.com/4seer/openflutterecommerceapp/tree/master/lib/presentation/widgets
+
+###cart
+https://github.com/vicradon/shopping-cart-app/blob/master/lib/pages/checkout.dart

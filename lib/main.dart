@@ -18,7 +18,7 @@ class FlutterCommerceApp extends StatelessWidget {
       theme: FlutterCommerceConfig.of(context),
       // home: SplashScreen(),
       // We use routeName so that we dont need to remember the name
-      initialRoute: '/',
+      initialRoute: HomePage.routeName,
       routes: routes,
     );
   }

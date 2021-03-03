@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/screens/checkout/checkout.dart';
 import 'package:mspr_project/screens/product/colors.dart';
 
 class Details extends StatefulWidget {
@@ -44,7 +45,12 @@ class _DetailsState extends State<Details> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset("assets/images/back_button.png"),
+          IconButton(
+            icon: Icon(Icons.keyboard_backspace_outlined),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           Column(
             children: [
               Text("MEN'S ORIGINAL",
@@ -53,10 +59,16 @@ class _DetailsState extends State<Details> {
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24))
             ],
           ),
-          Image.asset(
-            "assets/images/bag_button.png",
-            height: 34,
-            width: 34,
+          IconButton(
+            icon: Icon(Icons.shopping_bag_outlined),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Checkout(),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -152,7 +164,7 @@ class _DetailsState extends State<Details> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Size",
+              Text("Prix",
                   style: TextStyle(
                       color: AppColor.black,
                       fontWeight: FontWeight.bold,
@@ -162,7 +174,7 @@ class _DetailsState extends State<Details> {
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                   color: AppColor.bodyColor.withOpacity(0.10),
                   child: Text(
-                    "10.2",
+                    '${widget.product.productPrice.toString()} €',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ))
             ],
@@ -179,12 +191,18 @@ class _DetailsState extends State<Details> {
 
   Widget bottomButton() {
     return Container(
-      padding: EdgeInsets.only(right: 20),
       child: Container(
-        child: FlatButton(
-          color: Colors.blue,
-          child: Icon(Icons.add_shopping_cart),
-          onPressed: () {/* ... */},
+        child: FractionallySizedBox(
+          widthFactor: 0.9, // means 100%, you can change this to 0.8 (80%)
+          child: RaisedButton.icon(
+            color: Colors.green,
+            onPressed: () {
+              print("rr");
+            },
+            label: Text("Ajouter au panier",
+                style: TextStyle(color: Colors.white)),
+            icon: Icon(Icons.add_shopping_cart, color: Colors.white),
+          ),
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:mspr_project/models/product.dart';
 import 'package:mspr_project/repository/product_repository.dart';
 import 'package:mspr_project/screens/product/details.dart';
 import 'package:mspr_project/widgets/search/search.dart';
+import 'package:mspr_project/provider/cart_provider.dart';
 
 class HomePage extends StatefulWidget {
   static String routeName = "/";
@@ -39,7 +40,8 @@ class _HomePageState extends State<HomePage> {
             itemCount: data.length,
             itemBuilder: (context, index) => Card(
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Image.asset("assets/images/bag_1.png"),
+                Image.network(data[index].image,
+                    fit: BoxFit.cover, height: 100.0),
                 ListTile(
                   leading: Icon(Icons.check),
                   title: Text(data[index].productName),
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                 ButtonBar(
                   children: <Widget>[
                     FlatButton(
-                      child: Icon(Icons.zoom_in),
+                      child: Text("plus de détails"),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -58,11 +60,27 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
-                    FlatButton(
-                      child: Icon(Icons.add_shopping_cart),
-                      onPressed: () {/* ... */},
-                    ),
+                    Text(
+                      '${data[index].productPrice.toString()} €',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
                   ],
+                ),
+                Container(
+                  child: FractionallySizedBox(
+                    widthFactor:
+                        0.7, // means 100%, you can change this to 0.8 (80%)
+                    child: RaisedButton.icon(
+                      color: Colors.green,
+                      onPressed: () {
+                        bloc.addToCart(
+                            {'name': 'Code review', 'price': 90, 'id': 4});
+                      },
+                      label: Text("Ajouter au panier",
+                          style: TextStyle(color: Colors.white)),
+                      icon: Icon(Icons.add_shopping_cart, color: Colors.white),
+                    ),
+                  ),
                 ),
               ]),
             ),

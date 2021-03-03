@@ -37,4 +37,4 @@ class CartProvider {
   }
 }
 
-final bloc = CartProvider();
+final cartRepository = CartProvider();

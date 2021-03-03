@@ -3,7 +3,7 @@ import 'package:mspr_project/models/product.dart';
 import 'package:mspr_project/repository/product_repository.dart';
 import 'package:mspr_project/screens/product/details.dart';
 import 'package:mspr_project/widgets/search/search.dart';
-import 'package:mspr_project/provider/cart_provider.dart';
+import 'package:mspr_project/repository/cart_repository.dart';
 
 class HomePage extends StatefulWidget {
   static String routeName = "/";
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                     child: RaisedButton.icon(
                       color: Colors.green,
                       onPressed: () {
-                        bloc.addToCart(
+                        cartRepository.addToCart(
                             {'name': 'Code review', 'price': 90, 'id': 4});
                       },
                       label: Text("Ajouter au panier",

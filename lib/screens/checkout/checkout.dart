@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mspr_project/provider/cart_provider.dart';
+import 'package:mspr_project/repository/cart_repository.dart';
 
 class Checkout extends StatelessWidget {
   static String routeName = "/checkout";
@@ -7,8 +7,8 @@ class Checkout extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Panier')),
       body: StreamBuilder(
-        stream: bloc.getStream,
-        initialData: bloc.allItems,
+        stream: cartRepository.getStream,
+        initialData: cartRepository.allItems,
         builder: (context, snapshot) {
           return snapshot.data['cart items'].length > 0
               ? Column(
@@ -47,7 +47,7 @@ Widget checkoutListBuilder(snapshot) {
         trailing: IconButton(
           icon: Icon(Icons.remove_shopping_cart),
           onPressed: () {
-            bloc.removeFromCart(cartList[i]);
+            cartRepository.removeFromCart(cartList[i]);
           },
         ),
         onTap: () {},

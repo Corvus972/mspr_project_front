@@ -10,7 +10,7 @@ class Checkout extends StatelessWidget {
         stream: cartRepository.getStream,
         initialData: cartRepository.allItems,
         builder: (context, snapshot) {
-          return snapshot.data['cart items'].length > 0
+          return snapshot.data['cart_items'].length > 0
               ? Column(
                   children: <Widget>[
                     /// The [checkoutListBuilder] has to be fixed
@@ -18,17 +18,24 @@ class Checkout extends StatelessWidget {
                     /// doesn't occupy the whole screen and leaves
                     /// room for the the RaisedButton
                     Expanded(child: checkoutListBuilder(snapshot)),
-                    RaisedButton(
-                      onPressed: () {},
-                      child: Text("Panier"),
-                      color: Theme.of(context).primaryColor,
+                    FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: RaisedButton.icon(
+                        color: Colors.green,
+                        onPressed: () {
+                          print('ta mere');
+                        },
+                        label: Text("Commander",
+                            style: TextStyle(color: Colors.white)),
+                        icon: Icon(Icons.check_circle_outline,
+                            color: Colors.white),
+                      ),
                     ),
                     SizedBox(height: 40)
                   ],
                 )
               : Center(
-                  child: Text(
-                      "Vous n'avez pas de produits dans votre panier ${snapshot.data}"),
+                  child: Text("Vous n'avez pas de produits dans votre panier "),
                 );
         },
       ),
@@ -38,14 +45,20 @@ class Checkout extends StatelessWidget {
 
 Widget checkoutListBuilder(snapshot) {
   return ListView.builder(
-    itemCount: snapshot.data["cart items"].length,
+    itemCount: snapshot.data["cart_items"].length,
     itemBuilder: (BuildContext context, i) {
-      final cartList = snapshot.data["cart items"];
+      final cartList = snapshot.data["cart_items"];
       return ListTile(
-        title: Text(cartList[i]['name']),
-        subtitle: Text("\$${cartList[i]['price']}"),
+        leading: Image.network(
+          cartList[i].image,
+          fit: BoxFit.scaleDown,
+          width: 40,
+          height: 40,
+        ),
+        title: Text(cartList[i].productName),
+        subtitle: Text("${cartList[i].productPrice} €"),
         trailing: IconButton(
-          icon: Icon(Icons.remove_shopping_cart),
+          icon: Icon(Icons.remove_shopping_cart, color: Colors.red),
           onPressed: () {
             cartRepository.removeFromCart(cartList[i]);
           },

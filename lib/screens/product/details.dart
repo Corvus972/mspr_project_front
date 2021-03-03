@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/repository/cart_repository.dart';
 import 'package:mspr_project/screens/checkout/checkout.dart';
 import 'package:mspr_project/screens/product/colors.dart';
 
@@ -197,7 +198,7 @@ class _DetailsState extends State<Details> {
           child: RaisedButton.icon(
             color: Colors.green,
             onPressed: () {
-              print("rr");
+              cartRepository.addToCart(widget.product);
             },
             label: Text("Ajouter au panier",
                 style: TextStyle(color: Colors.white)),

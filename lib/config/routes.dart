@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mspr_project/screens/cart/cart_details.dart';
 import 'package:mspr_project/screens/checkout/checkout.dart';
 import 'package:mspr_project/screens/product/details.dart';
 import 'package:mspr_project/screens/home/home.dart';

@@ -9,6 +9,7 @@ class Search extends SearchDelegate {
         icon: Icon(Icons.close),
         onPressed: () {
           query = "";
+          Navigator.pop(context);
         },
       ),
     ];

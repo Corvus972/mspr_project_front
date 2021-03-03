@@ -8,25 +8,17 @@ class CartProvider {
   /// The [getStream] getter would be used to expose our stream to other classes
   Stream get getStream => cartStreamController.stream;
 
-  final Map allItems = {
-    'shop items': [
-      {'name': 'App dev kit', 'price': 20, 'id': 1},
-      {'name': 'App consultation', 'price': 100, 'id': 2},
-      {'name': 'Logo Design', 'price': 10, 'id': 3},
-      {'name': 'Code review', 'price': 90, 'id': 4},
-    ],
-    'cart items': []
-  };
+  final Map allItems = {'cart_items': []};
 
   void addToCart(item) {
-    allItems['shop items'].remove(item);
-    allItems['cart items'].add(item);
+    allItems['cart_items'].add(item);
     cartStreamController.sink.add(allItems);
+    /*   print(allItems['cart'].where((i) => i.id.contains(item.id))); */
+    print(allItems['cart_items']);
   }
 
   void removeFromCart(item) {
-    allItems['cart items'].remove(item);
-    allItems['shop items'].add(item);
+    allItems['cart_items'].remove(item);
     cartStreamController.sink.add(allItems);
   }
 

@@ -4,6 +4,7 @@ import 'package:mspr_project/repository/product_repository.dart';
 import 'package:mspr_project/screens/product/details.dart';
 import 'package:mspr_project/widgets/search/search.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
+import 'package:mspr_project/screens/checkout/checkout.dart';
 
 class HomePage extends StatefulWidget {
   static String routeName = "/";
@@ -27,6 +28,17 @@ class _HomePageState extends State<HomePage> {
                 showSearch(context: context, delegate: Search(data));
               },
               icon: Icon(Icons.search),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Checkout(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.shopping_bag_outlined),
             )
           ],
           centerTitle: true,
@@ -73,8 +85,7 @@ class _HomePageState extends State<HomePage> {
                     child: RaisedButton.icon(
                       color: Colors.green,
                       onPressed: () {
-                        cartRepository.addToCart(
-                            {'name': 'Code review', 'price': 90, 'id': 4});
+                        cartRepository.addToCart(data[index]);
                       },
                       label: Text("Ajouter au panier",
                           style: TextStyle(color: Colors.white)),

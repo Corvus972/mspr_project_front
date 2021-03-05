@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mspr_project/models/product.dart';
 import 'package:mspr_project/repository/product_repository.dart';
 import 'package:mspr_project/screens/product/details.dart';
+import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
 import 'package:mspr_project/widgets/search/search.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
 import 'package:mspr_project/screens/checkout/checkout.dart';
@@ -97,6 +98,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+        bottomSheet: BottomNav(),
       );
     }
 

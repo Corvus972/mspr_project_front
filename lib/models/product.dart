@@ -9,6 +9,7 @@ class Product {
   String productName;
   Decimal productPrice;
   String description;
+  int stock;
   int quantity;
   DateTime createdAt;
   String sku;
@@ -25,6 +26,10 @@ class Product {
   String get getDescription => description;
 
   set setDescription(String description) => this.description = description;
+
+  int get getStock => stock;
+
+  set setStock(int quantity) => this.stock = stock;
 
   int get getQuantity => quantity;
 
@@ -43,7 +48,8 @@ class Product {
       this.productName,
       this.productPrice,
       this.description,
-      this.quantity,
+      this.stock,
+      this.quantity = 0,
       this.createdAt,
       this.sku,
       this.image});
@@ -54,7 +60,7 @@ class Product {
       productName: json['product_name'],
       productPrice: Decimal.parse(json['product_price']),
       description: json['description'],
-      quantity: json['quantity'],
+      stock: json['quantity'],
       createdAt: DateTime.parse(json['created_at']),
       sku: json['sku'],
       image: json['image'],

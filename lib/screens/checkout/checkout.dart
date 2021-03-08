@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
 import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
+import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
 import 'package:flutter/services.dart';
 
 class Checkout extends StatelessWidget {
@@ -44,34 +45,4 @@ class Checkout extends StatelessWidget {
         ),
         bottomSheet: BottomNav());
   }
-}
-
-Widget checkoutListBuilder(snapshot) {
-  return ListView.builder(
-    itemCount: snapshot.data.length,
-    itemBuilder: (BuildContext context, i) {
-      final cartList = snapshot.data;
-      return ListTile(
-        leading: Image.network(
-          cartList[i].image,
-          fit: BoxFit.scaleDown,
-          width: 40,
-          height: 40,
-        ),
-        title: Text(cartList[i].productName),
-        /*  subtitle: Text("${cartList[i].productPrice} €"), */
-        subtitle: Text("quantité: ${cartList[i].quantity} "),
-        /* subtitle: TextFormField(
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly]), */
-        trailing: IconButton(
-          icon: Icon(Icons.remove_shopping_cart, color: Colors.red),
-          onPressed: () {
-            cartRepository.removeFromCart(cartList[i]);
-          },
-        ),
-        onTap: () {},
-      );
-    },
-  );
 }

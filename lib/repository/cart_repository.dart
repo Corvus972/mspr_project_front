@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/models/cart.dart';
 
 class CartProvider {
   /// The [cartStreamController] is an object of the StreamController class
@@ -10,30 +9,20 @@ class CartProvider {
   /// The [getStream] getter would be used to expose our stream to other classes
   Stream get getStream => cartStreamController.stream;
 
-  final List<Product> allItems = [];
+  final List<Cart> allItems = [];
 
   void addToCart(item) {
-    final index = allItems.indexWhere((element) => element.id == item.id);
+    final index =
+        allItems.indexWhere((element) => element.productId == item.sku);
     if (index < 0) {
-      item.quantity = 1;
-      allItems.add(item);
+      allItems.add(Cart(item.sku, 1, item.productPrice, item));
     } else {
-      allItems[index].quantity++;
-      print("id: " + allItems[index].id.toString());
-    }
-    print("quantity: " + item.quantity.toString());
-    cartStreamController.sink.add(allItems);
-    /* print('item: ' + item.productName); */
-    /*   for (var i = 0; i < allItems['cart_items'].length; i++) {
-      if (allItems['cart_items'][i].id == item.id) {
-        print('Using loop: ${allItems['cart_items'][i].productName}');
-
-        // Found the person, stop the loop
-        return;
+      if (item.stock > allItems[index].quantity) {
+        allItems[index].quantity++;
       }
-    } */
+    }
 
-    /* print(allItems['cart_items']); */
+    cartStreamController.sink.add(allItems);
   }
 
   void removeFromCart(item) {

@@ -8,7 +8,7 @@ class Details extends StatefulWidget {
   static String routeName = "/details";
   final Product product;
 
-  Details({Key key, this.product}) : super(key: key);
+  Details({Key key, @required this.product}) : super(key: key);
 
   @override
   _DetailsState createState() => _DetailsState();

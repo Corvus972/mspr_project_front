@@ -12,7 +12,7 @@ import 'package:mspr_project/screens/profile/profile.dart';
 
 final Map<String, WidgetBuilder> routes = {
   HomePage.routeName: (context) => HomePage(),
-  Details.routeName: (context) => Details(),
+  Details.routeName: (context) => Details(product: null),
   Checkout.routeName: (context) => Checkout(),
   ProfilePage.routeName: (context) => ProfilePage()
 };

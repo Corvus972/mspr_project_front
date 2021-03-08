@@ -10,7 +10,6 @@ class Product {
   Decimal productPrice;
   String description;
   int stock;
-  int quantity;
   DateTime createdAt;
   String sku;
   String image;
@@ -31,10 +30,6 @@ class Product {
 
   set setStock(int quantity) => this.stock = stock;
 
-  int get getQuantity => quantity;
-
-  set setQuantity(int quantity) => this.quantity = quantity;
-
   String get getSku => sku;
 
   set setSku(String sku) => this.sku = sku;
@@ -49,7 +44,6 @@ class Product {
       this.productPrice,
       this.description,
       this.stock,
-      this.quantity = 0,
       this.createdAt,
       this.sku,
       this.image});

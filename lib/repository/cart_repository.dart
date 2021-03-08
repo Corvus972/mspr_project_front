@@ -11,9 +11,15 @@ class CartProvider {
 
   final List<Cart> allItems = [];
 
+  double totalSum = 0;
+
+  int getIndexItem(item) {
+    return allItems.indexWhere((element) => element.productId == item.sku);
+  }
+
   void addToCart(item) {
-    final index =
-        allItems.indexWhere((element) => element.productId == item.sku);
+    int index = getIndexItem(item);
+
     if (index < 0) {
       allItems.add(Cart(item.sku, 1, item.productPrice, item));
     } else {
@@ -21,13 +27,31 @@ class CartProvider {
         allItems[index].quantity++;
       }
     }
+    print(totalByProduct(item));
+    print(totalCart());
 
     cartStreamController.sink.add(allItems);
   }
 
   void removeFromCart(item) {
     allItems.remove(item);
+    totalCart();
     cartStreamController.sink.add(allItems);
+  }
+
+  double totalByProduct(item) {
+    int index = getIndexItem(item);
+    return allItems[index].quantity *
+        double.parse(allItems[index].price.toString());
+  }
+
+  double totalCart() {
+    print('in function');
+    allItems.forEach((element) {
+      totalSum += element.quantity * double.parse(element.price.toString());
+    });
+    print('in function:' + totalSum.toString());
+    return totalSum;
   }
 
   /// The [dispose] method is used

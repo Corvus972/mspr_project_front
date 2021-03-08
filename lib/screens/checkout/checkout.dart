@@ -4,11 +4,26 @@ import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
 import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
 import 'package:flutter/services.dart';
 
-class Checkout extends StatelessWidget {
+class Checkout extends StatefulWidget {
+  String titlePanier = "Panier";
   static String routeName = "/checkout";
+
+  @override
+  _CheckoutState createState() => _CheckoutState();
+}
+
+class _CheckoutState extends State<Checkout> {
+  String changetTitle() {
+    double tot = cartRepository.totalCart();
+    if (tot > 0) {
+      widget.titlePanier = 'Total: ${tot.toString()} €';
+    }
+    return widget.titlePanier;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Panier')),
+        appBar: AppBar(title: Text(changetTitle())),
         body: StreamBuilder(
           stream: cartRepository.getStream,
           initialData: cartRepository.allItems,

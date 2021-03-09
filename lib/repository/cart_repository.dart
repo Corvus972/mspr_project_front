@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:mspr_project/models/cart.dart';
+import 'package:mspr_project/models/product.dart';
 
 class CartProvider {
   /// The [cartStreamController] is an object of the StreamController class
@@ -9,44 +12,44 @@ class CartProvider {
   /// The [getStream] getter would be used to expose our stream to other classes
   Stream get getStream => cartStreamController.stream;
 
-  final List<Cart> allItems = [];
+  List<Cart> allItems = [];
 
-  double totalSum = 0;
+  double totalSum = 0.0;
+
+  int get itemCount {
+    return allItems.length;
+  }
 
   int getIndexItem(item) {
     return allItems.indexWhere((element) => element.productId == item.sku);
   }
 
-  void addToCart(item) {
+  void addToCart(Product item) {
     int index = getIndexItem(item);
-
+    Cart carItem = Cart(item.sku, 1, item.productPrice, item);
     if (index < 0) {
-      allItems.add(Cart(item.sku, 1, item.productPrice, item));
+      allItems.add(carItem);
     } else {
       if (item.stock > allItems[index].quantity) {
         allItems[index].quantity++;
       }
     }
-    print(totalByProduct(item));
-    print(totalCart());
-
+    /* print(totalByProduct(item)); */
+    totalCart();
     cartStreamController.sink.add(allItems);
+    /* cartStreamController.sink.add(totalSum); */
   }
 
-  void removeFromCart(item) {
+  void removeFromCart(Cart item) {
     allItems.remove(item);
     totalCart();
     cartStreamController.sink.add(allItems);
-  }
-
-  double totalByProduct(item) {
-    int index = getIndexItem(item);
-    return allItems[index].quantity *
-        double.parse(allItems[index].price.toString());
+    /* cartStreamController.sink.add(totalSum); */
   }
 
   double totalCart() {
     print('in function');
+    totalSum = 0;
     allItems.forEach((element) {
       totalSum += element.quantity * double.parse(element.price.toString());
     });
@@ -54,8 +57,28 @@ class CartProvider {
     return totalSum;
   }
 
+  void increase(Cart item) {
+    int index = getIndexItem(item);
+    /* Product product = 
+    if (item.stock > allItems[index].quantity) {
+      allItems[index].quantity++;
+    } */
+  }
+
+  void decrease(Cart item) {
+    int index = getIndexItem(item);
+    if (allItems[index].quantity > 0) {
+      allItems[index].quantity--;
+    }
+  }
+
+  void clear() {
+    allItems = [];
+  }
+
   /// The [dispose] method is used
   /// to automatically close the stream when the widget is removed from the widget tree
+
   void dispose() {
     cartStreamController.close(); // close our StreamController
   }

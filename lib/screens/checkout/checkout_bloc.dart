@@ -3,9 +3,9 @@ import 'package:mspr_project/repository/cart_repository.dart';
 
 Widget checkoutListBuilder(snapshot) {
   return ListView.builder(
-    itemCount: snapshot.data.length,
+    itemCount: snapshot.length,
     itemBuilder: (BuildContext context, i) {
-      final cartList = snapshot.data;
+      final cartList = snapshot;
       return ListTile(
         leading: Image.network(
           cartList[i].product.image,

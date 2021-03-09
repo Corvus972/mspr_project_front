@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:mspr_project/models/product.dart';
 
+/*    */
 /* @JsonSerializable()
 @CustomDateTimeConverter() */
 class Cart {
@@ -8,6 +9,8 @@ class Cart {
   int quantity;
   Decimal price;
   Product product;
+
+  Cart(this.productId, this.quantity, this.price, this.product);
 
   String get getProductId => productId;
 
@@ -25,5 +28,5 @@ class Cart {
 
   set setProduct(Product product) => this.product = product;
 
-  Cart(this.productId, this.quantity, this.price, this.product);
+  double get totalByProduct => double.parse(price.toString()) * quantity;
 }

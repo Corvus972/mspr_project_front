@@ -4,26 +4,21 @@ import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
 import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
 import 'package:flutter/services.dart';
 
-class Checkout extends StatefulWidget {
-  String titlePanier = "Panier";
+class Checkout extends StatelessWidget {
   static String routeName = "/checkout";
 
   @override
-  _CheckoutState createState() => _CheckoutState();
-}
-
-class _CheckoutState extends State<Checkout> {
-  String changetTitle() {
-    double tot = cartRepository.totalCart();
-    if (tot > 0) {
-      widget.titlePanier = 'Total: ${tot.toString()} €';
-    }
-    return widget.titlePanier;
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(changetTitle())),
+        appBar: AppBar(
+            title: StreamBuilder(
+                stream: cartRepository.getStream,
+                initialData: cartRepository.totalSum,
+                builder: (context, snapshot2) {
+                  return cartRepository.totalSum > 0
+                      ? Text('Total: ${cartRepository.totalSum.toString()} €')
+                      : Text('Panier');
+                })),
         body: StreamBuilder(
           stream: cartRepository.getStream,
           initialData: cartRepository.allItems,
@@ -35,7 +30,7 @@ class _CheckoutState extends State<Checkout> {
                       /// in an expanded widget to ensure it
                       /// doesn't occupy the whole screen and leaves
                       /// room for the the RaisedButton
-                      Expanded(child: checkoutListBuilder(snapshot)),
+                      Expanded(child: checkoutListBuilder(snapshot.data)),
                       FractionallySizedBox(
                         widthFactor: 0.9,
                         child: RaisedButton.icon(
@@ -54,6 +49,7 @@ class _CheckoutState extends State<Checkout> {
                   )
                 : Center(
                     child:
+                        /* CircularProgressIndicator(), */
                         Text("Vous n'avez pas de produits dans votre panier "),
                   );
           },

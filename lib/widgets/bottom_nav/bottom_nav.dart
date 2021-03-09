@@ -16,10 +16,14 @@ class _BottomNavState extends State<BottomNav> {
       label: 'Home',
     ),
     BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+      label: 'Home',
+    ),
+    BottomNavigationBarItem(
       icon: Icon(Icons.mail),
       label: 'Messages',
     ),
-    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
+    BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Products')
   ];
 
   @override
@@ -49,6 +53,17 @@ class _BottomNavState extends State<BottomNav> {
         break;
 
       case "Profile":
+        {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfilePage(),
+            ),
+          );
+        }
+        break;
+
+      case "Products":
         {
           Navigator.push(
             context,

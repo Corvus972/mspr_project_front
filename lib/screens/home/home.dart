@@ -43,13 +43,13 @@ class _HomePageState extends State<HomePage> {
             )
           ],
           centerTitle: true,
-          title: Text('Home Page'),
+          title: Text('MSPR shop'),
         ),
         /*   body: _buildProductsListPage(data), */
         body: Center(
           child: ListView.builder(
             shrinkWrap: true,
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(50.0),
             itemCount: data.length,
             itemBuilder: (context, index) => Card(
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                 ButtonBar(
                   children: <Widget>[
                     FlatButton(
-                      child: Text("plus de détails"),
+                      child: Text("détails"),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                     widthFactor:
                         0.7, // means 100%, you can change this to 0.8 (80%)
                     child: RaisedButton.icon(
-                      color: Colors.green,
+                      color: Colors.black,
                       onPressed: () {
                         cartRepository.addToCart(data[index]);
                       },

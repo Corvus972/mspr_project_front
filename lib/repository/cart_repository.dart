@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mspr_project/models/cart.dart';
 import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/repository/product_repository.dart';
 
 class CartProvider {
   /// The [cartStreamController] is an object of the StreamController class
@@ -58,18 +59,27 @@ class CartProvider {
   }
 
   void increase(Cart item) {
-    int index = getIndexItem(item);
-    /* Product product = 
-    if (item.stock > allItems[index].quantity) {
+    int index = allItems.indexWhere((element) => element == item);
+    int productStock = item.product.stock;
+    if (allItems[index].quantity < productStock) {
       allItems[index].quantity++;
-    } */
+      totalCart();
+      print('quantity ok');
+    } else {
+      print('not anymore quantity');
+    }
   }
 
   void decrease(Cart item) {
-    int index = getIndexItem(item);
+    int index = allItems.indexWhere((element) => element == item);
+    print(index);
     if (allItems[index].quantity > 0) {
       allItems[index].quantity--;
     }
+    if (allItems[index].quantity == 0) {
+      removeFromCart(item);
+    }
+    totalCart();
   }
 
   void clear() {

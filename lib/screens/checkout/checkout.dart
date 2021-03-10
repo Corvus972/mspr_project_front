@@ -4,9 +4,14 @@ import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
 import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
 import 'package:flutter/services.dart';
 
-class Checkout extends StatelessWidget {
+class Checkout extends StatefulWidget {
   static String routeName = "/checkout";
 
+  @override
+  _CheckoutState createState() => _CheckoutState();
+}
+
+class _CheckoutState extends State<Checkout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,11 +52,18 @@ class Checkout extends StatelessWidget {
                       SizedBox(height: 60)
                     ],
                   )
-                : Center(
-                    child:
-                        /* CircularProgressIndicator(), */
-                        Text("Vous n'avez pas de produits dans votre panier "),
-                  );
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                                "Vous n'avez pas de produits dans votre panier ")),
+                        Align(
+                            alignment: Alignment.center,
+                            child: CircularProgressIndicator()),
+                      ]);
+            /*     CircularProgressIndicator(), */
           },
         ),
         bottomSheet: BottomNav());

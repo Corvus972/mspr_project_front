@@ -11,7 +11,7 @@ class ProductRepository {
 
   fetchProducts() async {
     List<Product> productResponse = await _provider.fetchProducts();
-    print(productResponse);
+    print('result:' + productResponse.toString());
     _productFetcher.sink.add(productResponse);
   }
 

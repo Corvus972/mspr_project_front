@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' show Client;
 import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/models/sales_rule.dart';
 
 class ApiProvider {
   Client client = Client();
@@ -21,6 +22,21 @@ class ApiProvider {
           .toList();
     } else {
       throw Exception('Failed to load Products');
+    }
+  }
+
+  Future<List<SalesRule>> fetchSalesRule() async {
+    final response = await client.get("${_baseUrl}salesrule/");
+    if (response.statusCode == 200) {
+      //Return decoded response
+      print((json.decode(response.body) as List)
+          .map((i) => SalesRule.fromJson(i))
+          .toList());
+      return (json.decode(response.body) as List)
+          .map((i) => SalesRule.fromJson(i))
+          .toList();
+    } else {
+      throw Exception('Failed to load sales rule');
     }
   }
 }

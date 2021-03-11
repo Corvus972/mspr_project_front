@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
+import 'package:mspr_project/widgets/alert/alert.dart';
 import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
 import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,29 @@ class _CheckoutState extends State<Checkout> {
                 initialData: cartRepository.totalSum,
                 builder: (context, snapshot2) {
                   return cartRepository.totalSum > 0
-                      ? Text('Total: ${cartRepository.totalSum.toString()} €')
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                              Text(
+                                  'Total: ${cartRepository.totalSum.toString()} €'),
+                              TextButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => Alert(),
+                                  );
+                                },
+                                child: Text('Code Promo'),
+                                style: TextButton.styleFrom(
+                                  primary: Colors.white,
+                                  backgroundColor: Colors.teal,
+                                  onSurface: Colors.grey,
+                                  textStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontStyle: FontStyle.italic),
+                                ),
+                              )
+                            ])
                       : Text('Panier');
                 })),
         body: StreamBuilder(

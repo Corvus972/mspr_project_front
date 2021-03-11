@@ -63,11 +63,12 @@ class CartProvider {
     int productStock = item.product.stock;
     if (allItems[index].quantity < productStock) {
       allItems[index].quantity++;
-      totalCart();
+      cartStreamController.sink.add(allItems);
       print('quantity ok');
     } else {
       print('not anymore quantity');
     }
+    totalCart();
   }
 
   void decrease(Cart item) {
@@ -75,6 +76,7 @@ class CartProvider {
     print(index);
     if (allItems[index].quantity > 0) {
       allItems[index].quantity--;
+      cartStreamController.sink.add(allItems);
     }
     if (allItems[index].quantity == 0) {
       removeFromCart(item);

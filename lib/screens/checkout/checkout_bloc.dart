@@ -55,8 +55,6 @@ Widget checkoutListBuilder(snapshot) {
                     },
                   ),
                 ],
-                // be carefull with the $ since it's used to put variables
-                // into strings, eg Text('Name : $name ')
               ),
             ],
           ),

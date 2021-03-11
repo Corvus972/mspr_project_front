@@ -23,4 +23,21 @@ class ApiProvider {
       throw Exception('Failed to load Products');
     }
   }
+
+  Future<List<Product>> fetchPromotions() async {
+    final response = await client.get(
+        "${_baseUrl}salesrule/"); // Make the network call asynchronously to fetch the London weather data.
+    /* print(response.body.toString()); */
+    if (response.statusCode == 200) {
+      //Return decoded response
+      print((json.decode(response.body) as List)
+          .map((i) => Product.fromJson(i))
+          .toList());
+      return (json.decode(response.body) as List)
+          .map((i) => Product.fromJson(i))
+          .toList();
+    } else {
+      throw Exception('Failed to load Products');
+    }
+  }
 }

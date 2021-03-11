@@ -49,12 +49,10 @@ class CartProvider {
   }
 
   double totalCart() {
-    print('in function');
     totalSum = 0;
     allItems.forEach((element) {
       totalSum += element.quantity * double.parse(element.price.toString());
     });
-    print('in function:' + totalSum.toString());
     return totalSum;
   }
 
@@ -64,7 +62,6 @@ class CartProvider {
     if (allItems[index].quantity < productStock) {
       allItems[index].quantity++;
       cartStreamController.sink.add(allItems);
-      print('quantity ok');
     } else {
       print('not anymore quantity');
     }

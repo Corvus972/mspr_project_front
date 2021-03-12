@@ -3,11 +3,20 @@ import 'package:mspr_project/models/sales_rule.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SalesRuleRepository {
+  
   ApiProvider _provider = ApiProvider();
 
   final _salesRuleFetcher = PublishSubject<List<SalesRule>>();
 
-  Observable<List<SalesRule>> get salesrule => _salesRuleFetcher.stream;
+  Stream<List<SalesRule>> get salesrule => _salesRuleFetcher.stream;
+
+  fetchSpecificSalesRule(String event) async {
+    _salesRuleFetcher.listen((event) {
+      /* for (String myString in event) {
+        print(myString);
+      } */
+    });
+  }
 
   fetchSalesRule() async {
     List<SalesRule> salesRuleResponse = await _provider.fetchSalesRule();

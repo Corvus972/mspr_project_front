@@ -3,7 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mspr_project/models/cart.dart';
 import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/models/sales_rule.dart';
 import 'package:mspr_project/repository/product_repository.dart';
+import 'package:mspr_project/repository/sales_rule_repository.dart';
 
 class CartProvider {
   /// The [cartStreamController] is an object of the StreamController class
@@ -17,8 +19,10 @@ class CartProvider {
 
   double totalSum = 0.0;
 
+  int qtyTotal = 0;
+
   int get itemCount {
-    return allItems.length;
+    return qtyTotal;
   }
 
   int getIndexItem(item) {
@@ -50,7 +54,9 @@ class CartProvider {
 
   double totalCart() {
     totalSum = 0;
+    qtyTotal = 0;
     allItems.forEach((element) {
+      qtyTotal += element.quantity;
       totalSum += element.quantity * double.parse(element.price.toString());
     });
     return totalSum;
@@ -79,6 +85,18 @@ class CartProvider {
       removeFromCart(item);
     }
     totalCart();
+  }
+
+  void applyDiscount(String couponCode) {
+    /* print(salesRuleRepository.salesrule);
+    await salesRuleRepository.salesrule.first; */
+    /*  firstWhere((element) =>
+          element.id == couponCode,
+          orElse: () {
+            return null;; */
+    var repo = salesRuleRepository;
+    repo.fetchSalesRule();
+    /* print(repo.salesrule); */
   }
 
   void clear() {

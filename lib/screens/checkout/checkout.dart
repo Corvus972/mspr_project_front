@@ -13,6 +13,8 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
+  var identifier = {"key1": "value1"};
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +33,13 @@ class _CheckoutState extends State<Checkout> {
                                 onPressed: () {
                                   showDialog(
                                     context: context,
-                                    builder: (BuildContext context) => Alert(),
+                                    builder: (BuildContext context) => Alert(
+                                      text: {
+                                        "title": "Promotions",
+                                        "placeHolder":
+                                            "Entrez vos codes promos",
+                                      },
+                                    ),
                                   );
                                 },
                                 child: Text('Code Promo'),

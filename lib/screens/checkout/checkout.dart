@@ -4,6 +4,7 @@ import 'package:mspr_project/widgets/alert/alert.dart';
 import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
 import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
 import 'package:flutter/services.dart';
+import 'package:mspr_project/widgets/notification/msg_notif.dart';
 
 class Checkout extends StatefulWidget {
   static String routeName = "/checkout";
@@ -67,6 +68,7 @@ class _CheckoutState extends State<Checkout> {
                       /// doesn't occupy the whole screen and leaves
                       /// room for the the RaisedButton
                       Expanded(child: checkoutListBuilder(snapshot.data)),
+                      MsgNotif(),
                       FractionallySizedBox(
                         widthFactor: 0.9,
                         child: RaisedButton.icon(

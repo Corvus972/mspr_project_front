@@ -4,7 +4,6 @@ import 'package:mspr_project/widgets/alert/alert.dart';
 import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
 import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
 import 'package:flutter/services.dart';
-import 'package:mspr_project/widgets/notification/msg_notif.dart';
 
 class Checkout extends StatefulWidget {
   static String routeName = "/checkout";
@@ -14,8 +13,6 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
-  var identifier = {"key1": "value1"};
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,5 +97,4 @@ class _CheckoutState extends State<Checkout> {
         ),
         bottomNavigationBar: BottomNav());
   }
-  
 }

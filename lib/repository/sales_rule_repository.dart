@@ -1,9 +1,9 @@
 import 'package:mspr_project/provider/api_provider.dart';
 import 'package:mspr_project/models/sales_rule.dart';
 import 'package:rxdart/rxdart.dart';
+import 'dart:async';
 
 class SalesRuleRepository {
-  
   ApiProvider _provider = ApiProvider();
 
   final _salesRuleFetcher = PublishSubject<List<SalesRule>>();

@@ -68,15 +68,14 @@ class CartProvider {
     if (allItems[index].quantity < productStock) {
       allItems[index].quantity++;
       cartStreamController.sink.add(allItems);
+      totalCart();
       return true;
     }
-    totalCart();
     return false;
   }
 
   void decrease(Cart item) {
     int index = allItems.indexWhere((element) => element == item);
-    print(index);
     if (allItems[index].quantity > 0) {
       allItems[index].quantity--;
       cartStreamController.sink.add(allItems);
@@ -88,15 +87,20 @@ class CartProvider {
   }
 
   void applyDiscount(String couponCode) {
-    /* print(salesRuleRepository.salesrule);
-    await salesRuleRepository.salesrule.first; */
-    /*  firstWhere((element) =>
-          element.id == couponCode,
-          orElse: () {
-            return null;; */
     var repo = salesRuleRepository;
     repo.fetchSalesRule();
-    /* print(repo.salesrule); */
+    repo.salesrule.listen((event) {
+      SalesRule salesR = event.firstWhere(
+          (element) => element.couponCode == couponCode, orElse: () {
+        return null;
+      });
+      print("object: " + salesR.couponCode.toString());
+      if (salesR != null) {
+        Product product = salesR.productAssociated;
+        print(product.productName);
+        /* allItems.firstWhere((element) => element.product.sku == ); */
+      }
+    });
   }
 
   void clear() {

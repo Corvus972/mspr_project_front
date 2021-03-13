@@ -5,7 +5,6 @@ import 'package:mspr_project/screens/home/body.dart';
 import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
 import 'package:mspr_project/widgets/header/header.dart';
 
-
 class HomePage extends StatefulWidget {
   static String routeName = "/";
   @override
@@ -30,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             )),
         /*   body: _buildProductsListPage(data), */
         body: HomeBody(data),
-        bottomSheet: BottomNav(),
+        bottomNavigationBar: BottomNav(),
       );
     }
 

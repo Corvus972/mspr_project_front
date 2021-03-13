@@ -68,7 +68,6 @@ class _CheckoutState extends State<Checkout> {
                       /// doesn't occupy the whole screen and leaves
                       /// room for the the RaisedButton
                       Expanded(child: checkoutListBuilder(snapshot.data)),
-                      MsgNotif(),
                       FractionallySizedBox(
                         widthFactor: 0.9,
                         child: RaisedButton.icon(
@@ -99,6 +98,7 @@ class _CheckoutState extends State<Checkout> {
             /*     CircularProgressIndicator(), */
           },
         ),
-        bottomSheet: BottomNav());
+        bottomNavigationBar: BottomNav());
   }
+  
 }

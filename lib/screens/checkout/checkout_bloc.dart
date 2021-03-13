@@ -31,12 +31,12 @@ Widget checkoutListBuilder(snapshot) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _decrementButton(cartList[i]),
+                  _decrementButton(cartList[i], context),
                   Text(
                     '${cartList[i].quantity}',
                     style: TextStyle(fontSize: 18.0),
                   ),
-                  _incrementButton(cartList[i])
+                  _incrementButton(cartList[i], context)
                 ],
                 // be carefull with the $ since it's used to put variables
                 // into strings, eg Text('Name : $name ')
@@ -64,18 +64,23 @@ Widget checkoutListBuilder(snapshot) {
   );
 }
 
-Widget _incrementButton(Cart item) {
+Widget _incrementButton(Cart item, context) {
   return IconButton(
     onPressed: () {
-      print(item);
-      cartRepository.increase(item);
+      var result = cartRepository.increase(item);
+      if (!result) {
+        showSnackBar(context, 'Pas assez de stock');
+      }
+
+      /* ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Login failed"))); */
     },
     icon: Icon(Icons.add, color: Colors.black),
     highlightColor: Colors.pink,
   );
 }
 
-Widget _decrementButton(Cart item) {
+Widget _decrementButton(Cart item, context) {
   return IconButton(
     onPressed: () {
       cartRepository.decrease(item);
@@ -83,4 +88,19 @@ Widget _decrementButton(Cart item) {
     icon: Icon(Icons.remove, color: Colors.black),
     highlightColor: Colors.pink,
   );
+}
+
+void showSnackBar(BuildContext context, String text) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(text),
+    backgroundColor: Colors.blue,
+    behavior: SnackBarBehavior.floating,
+    duration: const Duration(seconds: 1),
+    action: SnackBarAction(
+        label: 'Fermer',
+        textColor: Colors.white,
+        onPressed: () {
+          print('Fermer');
+        }),
+  ));
 }

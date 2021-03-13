@@ -62,16 +62,16 @@ class CartProvider {
     return totalSum;
   }
 
-  void increase(Cart item) {
+  bool increase(Cart item) {
     int index = allItems.indexWhere((element) => element == item);
     int productStock = item.product.stock;
     if (allItems[index].quantity < productStock) {
       allItems[index].quantity++;
       cartStreamController.sink.add(allItems);
-    } else {
-      print('not anymore quantity');
+      return true;
     }
     totalCart();
+    return false;
   }
 
   void decrease(Cart item) {

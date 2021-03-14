@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
-import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
 import 'package:mspr_project/widgets/snackbar/snackbar.dart';
 
 class Alert extends StatefulWidget {

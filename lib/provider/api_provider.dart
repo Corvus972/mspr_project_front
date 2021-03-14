@@ -29,14 +29,23 @@ class ApiProvider {
     final response = await client.get("${_baseUrl}salesrule/");
     if (response.statusCode == 200) {
       //Return decoded response
-      print((json.decode(response.body) as List)
-          .map((i) => SalesRule.fromJson(i))
-          .toList());
       return (json.decode(response.body) as List)
           .map((i) => SalesRule.fromJson(i))
           .toList();
     } else {
       throw Exception('Failed to load sales rule');
     }
+  }
+
+  Future<String> fetchSaleProduct(String idProduct) async {
+    final response = await client.get("${_baseUrl}ruleproduct/" + idProduct);
+    String couponResponse;
+    if (response.statusCode == 200) {
+      List data = json.decode(response.body);
+      couponResponse = data[0]['coupon_code'].toString();
+    } else {
+      throw Exception('Failed to load Rule for product');
+    }
+    return couponResponse;
   }
 }

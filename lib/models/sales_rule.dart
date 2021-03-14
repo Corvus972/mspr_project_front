@@ -11,7 +11,7 @@ class SalesRule {
   String toData;
   String couponCode;
   int discountAmount;
-  Product productAssociated;
+  List<Product> productAssociated;
 
   int get getId => id;
 
@@ -44,10 +44,17 @@ class SalesRule {
       this.discountAmount,
       this.productAssociated});
   factory SalesRule.fromJson(Map<String, dynamic> json) {
+    
+    //product associated
+    var list = json['product_associated'] as List;
+    List<Product> prodAssList = list.map((i) => Product.fromJson(i)).toList();
+
+    //date
     var fromDataParse =
         new DateFormat("dd-MM-yyyy").format(DateTime.parse(json['from_data']));
     var toDataParse =
         new DateFormat("dd-MM-yyyy").format(DateTime.parse(json['to_data']));
+
     return SalesRule(
         id: json['id'],
         name: json['name'],
@@ -56,6 +63,6 @@ class SalesRule {
         toData: toDataParse,
         couponCode: json['coupon_code'],
         discountAmount: json['discount_amount'],
-        productAssociated: Product.fromJson(json['product_associated'][0]));
+        productAssociated: prodAssList);
   }
 }

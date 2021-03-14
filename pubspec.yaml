@@ -37,7 +37,7 @@ dependencies:
   intl: ^0.15.8
   json_annotation: ^3.1.1
   barcode_scan: ^2.0.1
-  
+  badges: ^1.2.0
 
 dev_dependencies:
   flutter_test:

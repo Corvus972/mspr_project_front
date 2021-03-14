@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mspr_project/screens/checkout/checkout.dart';
 import 'package:mspr_project/screens/home/home.dart';
 import 'package:mspr_project/screens/profile/profile.dart';
+import 'package:mspr_project/screens/salesRule/sales_rule.dart';
 
 class BottomNav extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _BottomNavState extends State<BottomNav> {
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.mail),
-      label: 'Messages',
+      label: 'Promotions',
     ),
     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
   ];
@@ -37,12 +38,12 @@ class _BottomNavState extends State<BottomNav> {
     });
 
     switch (itemsList[index].label) {
-      case "Messages":
+      case "Promotions":
         {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => HomePage(),
+              builder: (context) => SalesRulePage(),
             ),
           );
         }

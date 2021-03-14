@@ -7,7 +7,7 @@ class ProductRepository {
 
   final _productFetcher = PublishSubject<List<Product>>();
 
-  Observable<List<Product>> get product => _productFetcher.stream;
+  Stream<List<Product>> get product => _productFetcher.stream;
 
   fetchProducts() async {
     List<Product> productResponse = await _provider.fetchProducts();

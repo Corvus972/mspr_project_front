@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/models/cart.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
+import 'package:mspr_project/widgets/snackbar/snackbar.dart';
 
 Widget checkoutListBuilder(snapshot) {
   return ListView.builder(
@@ -22,7 +23,7 @@ Widget checkoutListBuilder(snapshot) {
                   height: 50,
                 ),
                 Text(cartList[i].product.productName),
-                Text('${cartList[i].product.productPrice}€'),
+                Text('${cartList[i].price}€'),
               ]),
               //For the Line
               Divider(height: 10, thickness: 5),
@@ -88,19 +89,4 @@ Widget _decrementButton(Cart item, context) {
     icon: Icon(Icons.remove, color: Colors.black),
     highlightColor: Colors.pink,
   );
-}
-
-void showSnackBar(BuildContext context, String text) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: Text(text),
-    backgroundColor: Colors.blue,
-    behavior: SnackBarBehavior.floating,
-    duration: const Duration(seconds: 1),
-    action: SnackBarAction(
-        label: 'Fermer',
-        textColor: Colors.white,
-        onPressed: () {
-          print('Fermer');
-        }),
-  ));
 }

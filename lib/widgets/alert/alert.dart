@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
+import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
+import 'package:mspr_project/widgets/snackbar/snackbar.dart';
 
 class Alert extends StatefulWidget {
   final Map text;
@@ -31,11 +33,15 @@ class _AlertState extends State<Alert> {
       ),
       actions: <Widget>[
         FlatButton(
-          onPressed: () {
+          onPressed: () async {
             /* SVX99XV6 */
             var text = myController.text;
             if (text != "") {
-              cartRepository.applyDiscount(text);
+              bool response = await cartRepository.applyDiscount(text);
+              if (response) {
+                Navigator.of(context).pop();
+                showSnackBar(context, "Promotion appliquée");
+              }
             }
           },
           textColor: Theme.of(context).primaryColor,

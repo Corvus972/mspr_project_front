@@ -86,7 +86,8 @@ class CartProvider {
     totalCart();
   }
 
-  void applyDiscount(String couponCode) {
+  Future<bool> applyDiscount(String couponCode) {
+    bool response = false;
     var repo = salesRuleRepository;
     repo.fetchSalesRule();
     repo.salesrule.listen((event) {
@@ -95,12 +96,28 @@ class CartProvider {
         return null;
       });
       print("object: " + salesR.couponCode.toString());
+
       if (salesR != null) {
-        Product product = salesR.productAssociated;
-        print(product.productName);
-        /* allItems.firstWhere((element) => element.product.sku == ); */
+        List<Product> products = salesR.productAssociated;
+        for (var item in products) {
+          Cart prodAss = allItems.firstWhere(
+              (element) => element.product.sku == item.sku, orElse: () {
+            return null;
+          });
+          if (prodAss != null) {
+            prodAss.price = item.productPrice;
+          }
+        }
+        cartStreamController.sink.add(allItems);
+        response = true;
+        totalCart();
       }
     });
+    return Future.delayed(
+      Duration(seconds: 1),
+      () => response,
+    );
+    /* return Future.value(false); */
   }
 
   void clear() {

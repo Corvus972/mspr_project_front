@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             )
           ],
           centerTitle: true,
-          title: Text('Home Page'),
+          title: Text('MSPR SHOP'),
         ),
         /*   body: _buildProductsListPage(data), */
         body: Center(

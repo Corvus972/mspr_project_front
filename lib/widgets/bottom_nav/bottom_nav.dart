@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mspr_project/screens/checkout/checkout.dart';
 import 'package:mspr_project/screens/home/home.dart';
 import 'package:mspr_project/screens/profile/profile.dart';
+import 'package:mspr_project/screens/login/login.dart';
 
 class BottomNav extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _BottomNavState extends State<BottomNav> {
       icon: Icon(Icons.mail),
       label: 'Messages',
     ),
-    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Login'),
   ];
 
   @override
@@ -54,6 +55,17 @@ class _BottomNavState extends State<BottomNav> {
             context,
             MaterialPageRoute(
               builder: (context) => ProfilePage(),
+            ),
+          );
+        }
+        break;
+
+      case "Login":
+        {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(),
             ),
           );
         }

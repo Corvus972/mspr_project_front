@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mspr_project/repository/user_repository.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -72,8 +73,8 @@ class _LoginState extends State<LoginPage> {
                       color: Colors.blue,
                       child: Text('Login'),
                       onPressed: () {
-                        print(nameController.text);
-                        print(passwordController.text);
+                        userRepository.fetchUser(
+                            nameController.text, passwordController.text);
                       },
                     )),
                 Container(

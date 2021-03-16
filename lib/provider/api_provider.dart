@@ -48,4 +48,15 @@ class ApiProvider {
     }
     return couponResponse;
   }
+
+  Future<String> attemptLogIn(String username, String password) async {
+    var res = await client.post("${_baseUrl}login/",
+        body: {"email": username, "password": password});
+    if (res.statusCode == 200) {
+      print("reponse" + res.body);
+      return res.body;
+    }
+    print(res.body);
+    return null;
+  }
 }

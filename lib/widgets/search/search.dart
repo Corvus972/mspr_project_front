@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/screens/product/details.dart';
 
 class Search extends SearchDelegate {
   @override
@@ -62,7 +63,12 @@ class Search extends SearchDelegate {
           leading: query.isEmpty ? Icon(Icons.access_time) : SizedBox(),
           onTap: () {
             selectedResult = suggestionList[index].productName;
-            showResults(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Details(product: suggestionList[index]),
+              ),
+            );
           },
         );
       },

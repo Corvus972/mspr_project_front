@@ -8,3 +8,6 @@ https://github.com/4seer/openflutterecommerceapp/tree/master/lib/presentation/wi
 
 ###cart
 https://github.com/vicradon/shopping-cart-app/blob/master/lib/pages/checkout.dart
+
+
+https://stackoverflow.com/questions/54194999/is-there-any-way-to-achieve-a-flutter-top-snackbar

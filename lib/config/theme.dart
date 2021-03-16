@@ -30,6 +30,7 @@ class AppColors {
   static const transparent = Color(0x00000000);
   static const success = Color(0xFF2AA952);
   static const green = Color(0xFF2AA952);
+  static const blue = Color(0xFF1565C0);
 }
 
 class AppConsts {
@@ -40,7 +41,7 @@ class FlutterCommerceConfig {
   static ThemeData of(context) {
     var theme = Theme.of(context);
     return theme.copyWith(
-      primaryColor: AppColors.black,
+      primaryColor: AppColors.blue,
       primaryColorLight: AppColors.lightGray,
       accentColor: AppColors.red,
       bottomAppBarColor: AppColors.lightGray,

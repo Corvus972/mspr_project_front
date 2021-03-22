@@ -59,4 +59,6 @@ class ApiProvider {
     print(res.body);
     return null;
   }
+
+  // Todo here attempt registration
 }

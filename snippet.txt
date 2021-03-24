@@ -11,3 +11,10 @@ https://github.com/vicradon/shopping-cart-app/blob/master/lib/pages/checkout.dar
 
 
 https://stackoverflow.com/questions/54194999/is-there-any-way-to-achieve-a-flutter-top-snackbar
+
+###login
+
+https://bloclibrary.dev/#/flutterlogintutorial?id=setup
+https://stackoverflow.com/questions/59061820/flutter-login-system-using-bloc-pattern
+https://github.com/carzacc/jwt-tutorial-flutter/blob/master/lib/main.dart
+https://github.com/shubie/flutter-thursday-login-registration/blob/master/lib/providers/auth.dart

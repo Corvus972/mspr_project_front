@@ -48,15 +48,27 @@ class ApiProvider {
     }
     return couponResponse;
   }
+
   Future<String> attemptLogIn(String username, String password) async {
-    var res = await client.post(
-      "${_baseUrl}login/",
-      body: {
-        "username": username,
-        "password": password
-      }
-    );
-    if(res.statusCode == 200) return res.body;
+    var res = await client.post("${_baseUrl}login/",
+        body: {"username": username, "password": password});
+    if (res.statusCode == 200) return res.body;
+    return null;
+  }
+
+  Future<String> registerUser(
+      String username, String phone, String email, String password) async {
+    var res = await client.post("${_baseUrl}users/", body: {
+      "email": email,
+      "username": username,
+      "phone_number": phone,
+      "password": password
+    });
+    if (res.statusCode == 200) {
+      print("reponse register =>" + res.body);
+      return res.body;
+    }
+    print(res.body);
     return null;
   }
 }

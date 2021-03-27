@@ -16,12 +16,25 @@ class HomeBody extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         itemCount: data.length,
         itemBuilder: (context, index) => Card(
+          semanticContainer: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-            Image.network(data[index].image, fit: BoxFit.cover, height: 100.0),
+            Image.network(
+              data[index].image,
+              fit: BoxFit.cover,
+              height: 200,
+              width: 350,
+            ),
             ListTile(
-              leading: Icon(Icons.check),
-              title: Text(data[index].productName),
-              subtitle: Text(data[index].description),
+              leading: Icon(Icons.shopping_basket),
+              title: Text(
+                data[index].productName,
+                textAlign: TextAlign.end,
+              ),
+              subtitle:
+                  Text(data[index].description, textAlign: TextAlign.start),
             ),
             ButtonBar(
               children: <Widget>[
@@ -44,10 +57,11 @@ class HomeBody extends StatelessWidget {
             ),
             Container(
               child: FractionallySizedBox(
-                widthFactor:
-                    0.7, // means 100%, you can change this to 0.8 (80%)
+                widthFactor: 1, // means 100%, you can change this to 0.8 (80%)
                 child: RaisedButton.icon(
-                  color: Colors.green,
+                  color: Colors.black,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0)),
                   onPressed: () {
                     cartRepository.addToCart(data[index]);
                   },

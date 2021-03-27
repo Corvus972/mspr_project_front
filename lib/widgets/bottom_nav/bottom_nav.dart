@@ -16,18 +16,22 @@ class _BottomNavState extends State<BottomNav> {
   List<BottomNavigationBarItem> itemsList = [
     BottomNavigationBarItem(
       icon: Icon(Icons.home),
-      label: 'Home',
+      label: 'Catalogue',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.mail),
       label: 'Promotions',
     ),
-    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Registration'),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Inscription')
   ];
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Color(0xFF000000),
+      unselectedItemColor: Colors.white.withOpacity(.60),
+      selectedItemColor: Colors.white,
+      type: BottomNavigationBarType.fixed,
       onTap: onTabTapped, // new
       currentIndex: _currentIndex, // new
       items: itemsList,
@@ -62,7 +66,7 @@ class _BottomNavState extends State<BottomNav> {
         }
         break;
 
-      case "Registration":
+      case "Inscription":
         {
           Navigator.push(
             context,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/repository/user_repository.dart';
+import 'package:mspr_project/screens/login/login.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -94,7 +95,10 @@ class _RegistrationState extends State<RegistrationPage> {
                 ),
                 FlatButton(
                   onPressed: () {
-                    //forgot password screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
                   },
                   textColor: Colors.blue,
                   child: Text('Déjà un compte ? Connectez-vous'),
@@ -110,14 +114,17 @@ class _RegistrationState extends State<RegistrationPage> {
                         if (passwordConfirmController.text
                                 .compareTo(passwordController.text) ==
                             0) {
-                          print('equals');
                           userRepository.registerUser(
                               usernameController.text,
                               phoneController.text,
                               emailController.text,
                               passwordController.text);
-                        } else {
-                          print('not equal');
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()),
+                          );
                         }
                       },
                     )),

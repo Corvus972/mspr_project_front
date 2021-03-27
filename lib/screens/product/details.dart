@@ -214,7 +214,7 @@ class _DetailsState extends State<Details> {
         child: FractionallySizedBox(
           widthFactor: 0.9, // means 100%, you can change this to 0.8 (80%)
           child: RaisedButton.icon(
-            color: Colors.green,
+            color: Colors.black,
             onPressed: () {
               cartRepository.addToCart(widget.product);
             },

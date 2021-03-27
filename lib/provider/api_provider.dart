@@ -42,7 +42,10 @@ class ApiProvider {
     String couponResponse;
     if (response.statusCode == 200) {
       List data = json.decode(response.body);
-      couponResponse = data[0]['coupon_code'].toString();
+      couponResponse = data[0]['coupon_code'].toString() +
+          " " +
+          "associé à " +
+          data[0]['name'];
     } else {
       throw Exception('Failed to load Rule for product');
     }

@@ -60,8 +60,8 @@ class _SalesRuleState extends State<SalesRulePage> {
           child: FloatingActionButton(
             onPressed: () async {
               String codeSanner = await BarcodeScanner.scan();
-              productCouponCode = "Votre code promotionnelle : " +
-                  await getCouponData(codeSanner);
+              productCouponCode =
+                  "Coupon code : " + await getCouponData(codeSanner);
               setState(() {
                 if (qrCodeResult != null) {
                   qrCodeResult = productCouponCode;

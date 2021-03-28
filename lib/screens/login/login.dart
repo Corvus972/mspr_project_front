@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/repository/user_repository.dart';
 import 'package:mspr_project/screens/home/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,7 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -41,10 +42,10 @@ class _LoginState extends State<LoginPage> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: nameController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'User Name',
+                      labelText: 'Email',
                     ),
                   ),
                 ),
@@ -55,7 +56,7 @@ class _LoginState extends State<LoginPage> {
                     controller: passwordController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Password',
+                      labelText: 'Mot de passe',
                     ),
                   ),
                 ),
@@ -73,13 +74,19 @@ class _LoginState extends State<LoginPage> {
                       textColor: Colors.white,
                       color: Colors.blue,
                       child: Text('Login'),
-                      onPressed: () {
-                        userRepository.fetchUser(
-                            nameController.text, passwordController.text);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
-                        );
+                      onPressed: () async {
+                        var jwt = await getTokenFromLogin(
+                            emailController.text, passwordController.text);
+                        if (jwt != null) {
+                          // obtain shared preferences
+                          final prefs = await SharedPreferences.getInstance();
+                          // set value on secure storage
+                          prefs.setString('token', jwt);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        }
                       },
                     )),
                 Container(
@@ -101,5 +108,10 @@ class _LoginState extends State<LoginPage> {
                 ))
               ],
             )));
+  }
+
+  Future<String> getTokenFromLogin(String email, String password) async {
+    var response = await userRepository.fetchUser(email, password);
+    return Future.value(response);
   }
 }

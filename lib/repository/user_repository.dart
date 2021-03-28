@@ -11,16 +11,17 @@ class UserRepository {
 
   Stream<User> get user => _userFetcher.stream;
 
-  fetchUser(username, password) async {
+  Future<String> fetchUser(username, password) async {
     //List<User> userResponse = await _provider.fetchUser();
     //_userFetcher.sink.add(userResponse);
     var user = await _provider.attemptLogIn(username, password);
+    return user;
   }
 
-  registerUser(username,phone, email, password) async {
+  registerUser(username, phone, email, password) async {
     //List<User> userResponse = await _provider.fetchUser();
     //_userFetcher.sink.add(userResponse);
-    var user = await _provider.registerUser(username,phone, email, password);
+    var user = await _provider.registerUser(username, phone, email, password);
   }
 
   //dispose() {

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' show Client;
 import 'package:mspr_project/models/product.dart';
 import 'package:mspr_project/models/sales_rule.dart';
+import 'package:mspr_project/models/token.dart';
 
 class ApiProvider {
   Client client = Client();
@@ -54,9 +55,13 @@ class ApiProvider {
 
   Future<String> attemptLogIn(String username, String password) async {
     var res = await client.post("${_baseUrl}login/",
-        body: {"username": username, "password": password});
-    if (res.statusCode == 200) return res.body;
-    return null;
+        body: {"email": username, "password": password});
+    if (res.statusCode == 200) {
+      var token = Token.fromJson(json.decode(res.body));
+      return token.access;
+    } else {
+      throw Exception('Failed to credential');
+    }
   }
 
   Future<String> registerUser(

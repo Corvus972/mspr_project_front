@@ -24,6 +24,12 @@ class UserRepository {
     var user = await _provider.registerUser(username, phone, email, password);
   }
 
+  editUser(username, phone, email, password, String text, String text) async {
+    //List<User> userResponse = await _provider.fetchUser();
+    //_userFetcher.sink.add(userResponse);
+    var user = await _provider.registerUser(username, phone, email, password);
+  }
+
   //dispose() {
   // _salesRuleFetcher.close();
   //}

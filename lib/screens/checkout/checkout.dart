@@ -70,7 +70,7 @@ class _CheckoutState extends State<Checkout> {
                         child: RaisedButton.icon(
                           color: Colors.green,
                           onPressed: () {
-                            print('ta mere');
+                            cartRepository.sendOrder();
                           },
                           label: Text("Commander",
                               style: TextStyle(color: Colors.white)),

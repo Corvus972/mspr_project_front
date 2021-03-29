@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/provider/auth.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
+import 'package:mspr_project/screens/checkout/order_failed.dart';
 import 'package:mspr_project/screens/checkout/order_success.dart';
 import 'package:mspr_project/screens/login/login.dart';
 import 'package:mspr_project/widgets/alert/alert.dart';
@@ -79,12 +80,16 @@ class _CheckoutState extends State<CheckoutPage> {
                             color: Colors.green,
                             onPressed: () async{
                               var response = await cartRepository.sendOrder();
-                              print(response);
                               if(response){
                                 Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => OrderSuccessPage()),
-                    );
+                                context,
+                                MaterialPageRoute(builder: (context) => OrderSuccessPage()),
+                              );
+                              }else{
+                                Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => OrderFailedPage()),
+                              );
                               }
                             },
                             label: Text("Commander",

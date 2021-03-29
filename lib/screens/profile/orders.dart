@@ -3,7 +3,8 @@ import 'package:mspr_project/models/order.dart';
 import 'package:mspr_project/repository/order_repository.dart';
 import 'package:mspr_project/screens/profile/orders_body.dart';
 import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
-import 'package:mspr_project/widgets/header/header.dart';
+
+
 class OrdersPage extends StatelessWidget {
   const OrdersPage({Key key}) : super(key: key);
 
@@ -17,9 +18,7 @@ class OrdersPage extends StatelessWidget {
         appBar: AppBar(
             actions: <Widget>[],
             centerTitle: false,
-            title: Header(
-              title: 'Accueil',
-            )),
+            title: Text('Commandes passées')),
         body: OrdersBody(data),
         bottomNavigationBar: BottomNav(),
       );

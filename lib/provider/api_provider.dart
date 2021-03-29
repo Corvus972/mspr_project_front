@@ -17,9 +17,6 @@ class ApiProvider {
     /* print(response.body.toString()); */
     if (response.statusCode == 200) {
       //Return decoded response
-      print((json.decode(response.body) as List)
-          .map((i) => Product.fromJson(i))
-          .toList());
       return (json.decode(response.body) as List)
           .map((i) => Product.fromJson(i))
           .toList();
@@ -141,9 +138,6 @@ class ApiProvider {
 
     if (response.statusCode == 200) {
       //Return decoded response
-      print((json.decode(response.body) as List)
-          .map((i) => Order.fromJson(i))
-          .toList());
       return (json.decode(response.body) as List)
           .map((i) => Order.fromJson(i))
           .toList();

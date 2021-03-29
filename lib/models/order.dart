@@ -1,12 +1,12 @@
 import 'package:intl/intl.dart';
-import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/models/product_ordered.dart';
 
 
 class Order {
   int id;
   String status;
   String date;
-  List<Product> items;
+  List<ProductOrdered> items;
 
  int get getId => this.id;
 
@@ -30,8 +30,8 @@ class Order {
   factory Order.fromJson(Map<String, dynamic> json) {
 
     //product associated
-    var list = json['items'] as List;
-    List<Product> listProducts = list.map((i) => Product.fromJson(i)).toList();
+    var list = json['items']as List;
+    List<ProductOrdered> listProducts = list.map((i) => ProductOrdered.fromJson(i)).toList();
     
     var dataParse =
         new DateFormat("dd-MM-yyyy").format(DateTime.parse(json['date']));

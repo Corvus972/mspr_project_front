@@ -12,7 +12,7 @@ import 'package:mspr_project/widgets/snackbar/snackbar.dart';
 class Header extends StatelessWidget {
   final List<Product> data;
   final String title;
-  const Header({Key key, this.data, @required this.title})
+  const Header({Key key, @required this.data, @required this.title})
       : super(key: key);
   Future<String> _checkIfLogin() async {
     final prefs = await SharedPreferences.getInstance();

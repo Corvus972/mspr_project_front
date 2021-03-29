@@ -67,20 +67,20 @@ class ApiProvider {
 
   Future<String> registerUser(
       String username, String phone, String email, String password) async {
-        var res = await client.post("${_baseUrl}users/", body: {
-          "email": email,
-          "username": username,
-          "phone_number": phone,
-          "password": password
-        });
-        if (res.statusCode == 200) {
-          print("reponse register => " + res.body);
-          return res.body;
-        }
+    var res = await client.post("${_baseUrl}users/", body: {
+      "email": email,
+      "username": username,
+      "phone_number": phone,
+      "password": password
+    });
+    if (res.statusCode == 200) {
+      print("reponse register => " + res.body);
+      return res.body;
+    }
     print(res.body);
     return null;
   }
-  
+
   Future<String> isLogged() async {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -90,18 +90,16 @@ class ApiProvider {
   Future<bool> sendOrder(Map<String, List> data) async {
     bool rst = false;
     var token = await isLogged();
-    var response = await client.post(
-      "${_baseUrl}orders/", 
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        "Authorization": "Bearer $token"
-      },
-      body:json.encode(data)
-      );
+    var response = await client.post("${_baseUrl}orders/",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": "Bearer $token"
+        },
+        body: json.encode(data));
     if (response.statusCode == 201) {
-        rst = true;
+      rst = true;
     }
-    
+
     return Future.value(rst);
   }
 }

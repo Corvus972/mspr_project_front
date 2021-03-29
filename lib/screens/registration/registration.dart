@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/repository/user_repository.dart';
 import 'package:mspr_project/screens/login/login.dart';
+import 'package:mspr_project/widgets/snackbar/snackbar.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -30,7 +31,7 @@ class _RegistrationState extends State<RegistrationPage> {
                     child: Text(
                       'Inscription',
                       style: TextStyle(
-                          color: Colors.blue,
+                          color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 30),
                     )),
@@ -100,7 +101,7 @@ class _RegistrationState extends State<RegistrationPage> {
                       MaterialPageRoute(builder: (context) => LoginPage()),
                     );
                   },
-                  textColor: Colors.blue,
+                  textColor: Colors.black,
                   child: Text('Déjà un compte ? Connectez-vous'),
                 ),
                 Container(
@@ -108,7 +109,7 @@ class _RegistrationState extends State<RegistrationPage> {
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: RaisedButton(
                       textColor: Colors.white,
-                      color: Colors.blue,
+                      color: Colors.black,
                       child: Text('Créer un compte'),
                       onPressed: () {
                         if (passwordConfirmController.text
@@ -119,7 +120,7 @@ class _RegistrationState extends State<RegistrationPage> {
                               phoneController.text,
                               emailController.text,
                               passwordController.text);
-
+                          showSnackBar(context, 'Bienvenue !');
                           Navigator.push(
                             context,
                             MaterialPageRoute(

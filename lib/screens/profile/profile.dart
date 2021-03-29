@@ -28,12 +28,29 @@ class _ProfilePageState extends State<ProfilePage> {
             } */
     return Scaffold(
         appBar: AppBar(
-          title: Text('Retour'),
+          title: Text('Votre Profil'),
         ),
         body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(
               children: <Widget>[
+                FractionallySizedBox(
+                          widthFactor: 0.9,
+                          child: RaisedButton.icon(
+                            color: Colors.blue,
+                            onPressed: () {
+                              Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OrdersPage()),
+                    );
+                            },
+                            label: Text("Voir mes commandes",
+                                style: TextStyle(color: Colors.white)),
+                            icon: Icon(Icons.check_circle_outline,
+                                color: Colors.white),
+                          ),
+                        ),
+                
                 Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(10),

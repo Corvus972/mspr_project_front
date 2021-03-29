@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' show Client;
+import 'package:mspr_project/models/order.dart';
 import 'package:mspr_project/models/product.dart';
 import 'package:mspr_project/models/sales_rule.dart';
 import 'package:mspr_project/models/token.dart';
@@ -7,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiProvider {
   Client client = Client();
-
+  
   final _baseUrl = "http://10.0.2.2:8000/";
 
   Future<List<Product>> fetchProducts() async {
@@ -16,9 +17,6 @@ class ApiProvider {
     /* print(response.body.toString()); */
     if (response.statusCode == 200) {
       //Return decoded response
-      print((json.decode(response.body) as List)
-          .map((i) => Product.fromJson(i))
-          .toList());
       return (json.decode(response.body) as List)
           .map((i) => Product.fromJson(i))
           .toList();
@@ -79,25 +77,70 @@ class ApiProvider {
     return null;
   }
 
-  Future<String> isLogged() async {
+
+  Future<String> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     return Future.value(token);
   }
 
+  Future<String> editUser(String username, String phone, String addressLine1,
+      String addressLine2, String city, String zipCode) async {
+    var token = await getToken();
+
+    var res = await client.put("${_baseUrl}me/", body: {
+      "username": username,
+      "phone_number": phone,
+      "addressLine1": addressLine1,
+      "addressLine2": addressLine2,
+      "city": city,
+      "zipCode": zipCode
+    });
+
+    if (res.statusCode == 200) {
+      print("reponse register => " + res.body);
+      return res.body;
+    }
+
+    print(res.body);
+    return null;
+  }
+
   Future<bool> sendOrder(Map<String, List> data) async {
     bool rst = false;
-    var token = await isLogged();
-    var response = await client.post("${_baseUrl}orders/",
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          "Authorization": "Bearer $token"
-        },
-        body: json.encode(data));
+
+    var token = await getToken();
+    var response = await client.post(
+      "${_baseUrl}orders/", 
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        "Authorization": "Bearer $token"
+      },
+      body:json.encode(data)
+      );
+
     if (response.statusCode == 201) {
       rst = true;
     }
 
     return Future.value(rst);
+  }
+  Future<List<Order>> fetchOrders() async {
+    var token = await getToken();
+    final response = await client.get(
+        "${_baseUrl}orders/", 
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        "Authorization": "Bearer $token"
+      }); 
+
+    if (response.statusCode == 200) {
+      //Return decoded response
+      return (json.decode(response.body) as List)
+          .map((i) => Order.fromJson(i))
+          .toList();
+    } else {
+      throw Exception('Failed to load Orders');
+    }
   }
 }

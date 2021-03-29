@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/provider/auth.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
 import 'package:mspr_project/widgets/search/search.dart';
 import 'package:mspr_project/screens/checkout/checkout.dart';
@@ -48,7 +49,7 @@ class Header extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Checkout(),
+                        builder: (context) => CheckoutPage(),
                       ),
                     );
                   },
@@ -66,6 +67,7 @@ class Header extends StatelessWidget {
                     onPressed: () async {
                       final prefs = await SharedPreferences.getInstance();
                       prefs.remove("token");
+                      authService.isLogged = false;
                       showSnackBar(context, 'Vous êtes déconnecté');
                       Navigator.push(
                         context,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mspr_project/provider/auth.dart';
 import 'package:mspr_project/repository/user_repository.dart';
 import 'package:mspr_project/screens/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -94,7 +95,8 @@ class _LoginState extends State<LoginPage> {
                           final prefs = await SharedPreferences.getInstance();
                           // set value on secure storage
                           prefs.setString('token', jwt);
-                          showSnackBar(context, 'Vous êtes connecté !');
+                          authService.isLogged = true;
+                          showSnackBar(context, 'Vous êtes connecté');
 
                           Navigator.push(
                             context,

@@ -40,17 +40,14 @@ class CartProvider {
         allItems[index].quantity++;
       }
     }
-    /* print(totalByProduct(item)); */
     totalCart();
     cartStreamController.sink.add(allItems);
-    /* cartStreamController.sink.add(totalSum); */
   }
 
   void removeFromCart(Cart item) {
     allItems.remove(item);
     totalCart();
     cartStreamController.sink.add(allItems);
-    /* cartStreamController.sink.add(totalSum); */
   }
 
   double totalCart() {
@@ -96,7 +93,6 @@ class CartProvider {
           (element) => element.couponCode == couponCode, orElse: () {
         return null;
       });
-      print("object: " + salesR.couponCode.toString());
 
       if (salesR != null) {
         List<Product> products = salesR.productAssociated;
@@ -118,7 +114,6 @@ class CartProvider {
       Duration(seconds: 1),
       () => response,
     );
-    /* return Future.value(false); */
   }
   Future<bool> sendOrder() async {
     Map<String, List> items = {"items":[]};
@@ -129,8 +124,12 @@ class CartProvider {
         
         })
      });
-     /* print(items); */
     bool result = await _provider.sendOrder(items);
+    if(result){
+      allItems = [];
+      cartStreamController.sink.add(allItems);
+      totalCart();
+    }
     return result;
   }
 

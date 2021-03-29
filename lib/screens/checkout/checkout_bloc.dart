@@ -72,9 +72,6 @@ Widget _incrementButton(Cart item, context) {
       if (!result) {
         showSnackBar(context, 'Pas assez de stock');
       }
-
-      /* ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Login failed"))); */
     },
     icon: Icon(Icons.add, color: Colors.black),
     highlightColor: Colors.pink,

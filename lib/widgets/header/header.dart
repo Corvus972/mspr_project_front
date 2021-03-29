@@ -6,6 +6,7 @@ import 'package:mspr_project/screens/checkout/checkout.dart';
 import 'package:badges/badges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mspr_project/screens/home/home.dart';
+import 'package:mspr_project/widgets/snackbar/snackbar.dart';
 
 class Header extends StatelessWidget {
   final List<Product> data;
@@ -65,6 +66,7 @@ class Header extends StatelessWidget {
                     onPressed: () async {
                       final prefs = await SharedPreferences.getInstance();
                       prefs.remove("token");
+                      showSnackBar(context, 'Vous êtes déconnecté');
                       Navigator.push(
                         context,
                         MaterialPageRoute(

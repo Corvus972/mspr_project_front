@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:mspr_project/provider/auth.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
+import 'package:mspr_project/screens/checkout/order_success.dart';
+import 'package:mspr_project/screens/login/login.dart';
 import 'package:mspr_project/widgets/alert/alert.dart';
 import 'package:mspr_project/widgets/bottom_nav/bottom_nav.dart';
 import 'package:mspr_project/screens/checkout/checkout_bloc.dart';
-import 'package:flutter/services.dart';
 
-class Checkout extends StatefulWidget {
+class CheckoutPage extends StatefulWidget {
   static String routeName = "/checkout";
 
   @override
   _CheckoutState createState() => _CheckoutState();
 }
 
-class _CheckoutState extends State<Checkout> {
+class _CheckoutState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,19 +67,50 @@ class _CheckoutState extends State<Checkout> {
                       /// doesn't occupy the whole screen and leaves
                       /// room for the the RaisedButton
                       Expanded(child: checkoutListBuilder(snapshot.data)),
-                      FractionallySizedBox(
-                        widthFactor: 0.9,
-                        child: RaisedButton.icon(
-                          color: Colors.green,
-                          onPressed: () {
-                            cartRepository.sendOrder();
-                          },
-                          label: Text("Commander",
-                              style: TextStyle(color: Colors.white)),
-                          icon: Icon(Icons.check_circle_outline,
-                              color: Colors.white),
-                        ),
-                      ),
+                      StreamBuilder(
+                        stream: authService.getStream,
+          initialData: authService.isLogged,
+          builder: (context, snapshot) {
+            print(snapshot.data);
+            return snapshot.data == true
+                ? FractionallySizedBox(
+                          widthFactor: 0.9,
+                          child: RaisedButton.icon(
+                            color: Colors.green,
+                            onPressed: () async{
+                              var response = await cartRepository.sendOrder();
+                              print(response);
+                              if(response){
+                                Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OrderSuccessPage()),
+                    );
+                              }
+                            },
+                            label: Text("Commander",
+                                style: TextStyle(color: Colors.white)),
+                            icon: Icon(Icons.check_circle_outline,
+                                color: Colors.white),
+                          ),
+                        )
+                        :
+                       FractionallySizedBox(
+                          widthFactor: 0.9,
+                          child: RaisedButton.icon(
+                            color: Colors.orange,
+                            onPressed: () {
+                              Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                            },
+                            label: Text("Veuillez vous connecter",
+                                style: TextStyle(color: Colors.white)),
+                            icon: Icon(Icons.check_circle_outline,
+                                color: Colors.white),
+                          ),
+                        );
+          }),
                       SizedBox(height: 60)
                     ],
                   )

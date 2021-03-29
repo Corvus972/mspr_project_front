@@ -79,7 +79,7 @@ class _DetailsState extends State<Details> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Checkout(),
+                            builder: (context) => CheckoutPage(),
                           ),
                         );
                       },

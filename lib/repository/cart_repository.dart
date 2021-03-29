@@ -131,6 +131,11 @@ class CartProvider {
      });
      /* print(items); */
     bool result = await _provider.sendOrder(items);
+    if(result){
+      allItems = [];
+      cartStreamController.sink.add(allItems);
+      totalCart();
+    }
     return result;
   }
 

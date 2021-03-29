@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mspr_project/models/product.dart';
+import 'package:mspr_project/provider/auth.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
 import 'package:mspr_project/widgets/search/search.dart';
 import 'package:mspr_project/screens/checkout/checkout.dart';
@@ -10,7 +11,7 @@ import 'package:mspr_project/screens/home/home.dart';
 class Header extends StatelessWidget {
   final List<Product> data;
   final String title;
-  const Header({Key key, @required this.data, @required this.title})
+  const Header({Key key, this.data, @required this.title})
       : super(key: key);
   Future<String> _checkIfLogin() async {
     final prefs = await SharedPreferences.getInstance();
@@ -47,7 +48,7 @@ class Header extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Checkout(),
+                        builder: (context) => CheckoutPage(),
                       ),
                     );
                   },
@@ -65,6 +66,7 @@ class Header extends StatelessWidget {
                     onPressed: () async {
                       final prefs = await SharedPreferences.getInstance();
                       prefs.remove("token");
+                      authService.isLogged = false;
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -16,7 +16,7 @@ class ProductRepository {
   }
 
   dispose() {
-    _productFetcher.close();
+    _productFetcher.close(); // close our StreamController
   }
 }
 

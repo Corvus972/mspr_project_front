@@ -3,6 +3,7 @@ import 'package:mspr_project/provider/auth.dart';
 import 'package:mspr_project/repository/user_repository.dart';
 import 'package:mspr_project/screens/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mspr_project/widgets/snackbar/snackbar.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _LoginState extends State<LoginPage> {
                     child: Text(
                       'Connectez-vous',
                       style: TextStyle(
-                          color: Colors.blue,
+                          color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 30),
                     )),
@@ -65,7 +66,7 @@ class _LoginState extends State<LoginPage> {
                   onPressed: () {
                     //forgot password screen
                   },
-                  textColor: Colors.blue,
+                  textColor: Colors.black,
                   child: Text('Forgot Password'),
                 ),
                 Container(
@@ -73,7 +74,7 @@ class _LoginState extends State<LoginPage> {
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: RaisedButton(
                       textColor: Colors.white,
-                      color: Colors.blue,
+                      color: Colors.black,
                       child: Text('Login'),
                       onPressed: () async {
                         var jwt = await getTokenFromLogin(
@@ -84,10 +85,14 @@ class _LoginState extends State<LoginPage> {
                           // set value on secure storage
                           prefs.setString('token', jwt);
                           authService.isLogged = true;
+                          showSnackBar(context, 'Vous êtes connecté');
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePage()),
                           );
+                        } else {
+                          showSnackBar(context, 'Identifiant incorrect');
                         }
                       },
                     )),
@@ -96,7 +101,7 @@ class _LoginState extends State<LoginPage> {
                   children: <Widget>[
                     Text('Does not have account?'),
                     FlatButton(
-                      textColor: Colors.blue,
+                      textColor: Colors.black,
                       child: Text(
                         'Sign in',
                         style: TextStyle(fontSize: 20),

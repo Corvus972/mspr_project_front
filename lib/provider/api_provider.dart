@@ -68,28 +68,52 @@ class ApiProvider {
 
   Future<String> registerUser(
       String username, String phone, String email, String password) async {
-        var res = await client.post("${_baseUrl}users/", body: {
-          "email": email,
-          "username": username,
-          "phone_number": phone,
-          "password": password
-        });
-        if (res.statusCode == 200) {
-          print("reponse register => " + res.body);
-          return res.body;
-        }
+    var res = await client.post("${_baseUrl}users/", body: {
+      "email": email,
+      "username": username,
+      "phone_number": phone,
+      "password": password
+    });
+    if (res.statusCode == 200) {
+      print("reponse register => " + res.body);
+      return res.body;
+    }
     print(res.body);
     return null;
   }
-  
+
+
   Future<String> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     return Future.value(token);
   }
 
+  Future<String> editUser(String username, String phone, String addressLine1,
+      String addressLine2, String city, String zipCode) async {
+    var token = await getToken();
+
+    var res = await client.put("${_baseUrl}me/", body: {
+      "username": username,
+      "phone_number": phone,
+      "addressLine1": addressLine1,
+      "addressLine2": addressLine2,
+      "city": city,
+      "zipCode": zipCode
+    });
+
+    if (res.statusCode == 200) {
+      print("reponse register => " + res.body);
+      return res.body;
+    }
+
+    print(res.body);
+    return null;
+  }
+
   Future<bool> sendOrder(Map<String, List> data) async {
     bool rst = false;
+
     var token = await getToken();
     var response = await client.post(
       "${_baseUrl}orders/", 
@@ -99,10 +123,11 @@ class ApiProvider {
       },
       body:json.encode(data)
       );
+
     if (response.statusCode == 201) {
-        rst = true;
+      rst = true;
     }
-    
+
     return Future.value(rst);
   }
   Future<List<Order>> fetchOrders() async {

@@ -26,10 +26,11 @@ class _BottomNavState extends State<BottomNav> {
       label: 'Catalogue',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.mail),
+      icon: Icon(Icons.select_all_rounded),
       label: 'Promotions',
     ),
     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Inscription'),
+    BottomNavigationBarItem(icon: Icon(Icons.login), label: 'Login')
   ];
 
   List<BottomNavigationBarItem> itemsListIfLogin = [
@@ -97,6 +98,17 @@ class _BottomNavState extends State<BottomNav> {
             context,
             MaterialPageRoute(
               builder: (context) => ProfilePage(),
+            ),
+          );
+        }
+        break;
+
+      case "Login":
+        {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(),
             ),
           );
         }

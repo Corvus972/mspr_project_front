@@ -24,10 +24,17 @@ class UserRepository {
     var user = await _provider.registerUser(username, phone, email, password);
   }
 
+  editUser(String username, String phone, String addressLine1, String addressLine2,
+      String city, String zipCode) async {
+    print(phone);
+    //List<User> userResponse = await _provider.fetchUser();
+    //_userFetcher.sink.add(userResponse);
+    var user = await _provider.editUser(username, phone, addressLine1,  addressLine2, city,  zipCode);
+  }
+
   //dispose() {
   // _salesRuleFetcher.close();
   //}
-
 }
 
 final userRepository = UserRepository();

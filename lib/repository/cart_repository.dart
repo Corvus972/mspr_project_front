@@ -1,13 +1,14 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:mspr_project/models/cart.dart';
 import 'package:mspr_project/models/product.dart';
 import 'package:mspr_project/models/sales_rule.dart';
-import 'package:mspr_project/repository/product_repository.dart';
+import 'package:mspr_project/provider/api_provider.dart';
 import 'package:mspr_project/repository/sales_rule_repository.dart';
 
 class CartProvider {
+
+  ApiProvider _provider = ApiProvider();
+  
   /// The [cartStreamController] is an object of the StreamController class
   /// .broadcast enables the stream to be read in multiple screens of our app
   final cartStreamController = StreamController.broadcast();
@@ -118,6 +119,19 @@ class CartProvider {
       () => response,
     );
     /* return Future.value(false); */
+  }
+  Future<bool> sendOrder() async {
+    Map<String, List> items = {"items":[]};
+    allItems.forEach((element) => {
+      items["items"].add({
+            "product": element.product.id,
+            "quantity": element.quantity
+        
+        })
+     });
+     /* print(items); */
+    bool result = await _provider.sendOrder(items);
+    return result;
   }
 
   void clear() {

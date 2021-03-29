@@ -24,6 +24,7 @@ class UserRepository {
     var user = await _provider.registerUser(username, phone, email, password);
   }
 
+
   editUser(String username, String phone, String addressLine1, String addressLine2,
       String city, String zipCode) async {
     print(phone);

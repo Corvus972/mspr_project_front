@@ -58,8 +58,6 @@ class ApiProvider {
     if (res.statusCode == 200) {
       var token = Token.fromJson(json.decode(res.body));
       return token.access;
-    } else {
-      throw Exception('Failed to credential');
     }
   }
 

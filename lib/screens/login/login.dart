@@ -12,12 +12,12 @@ class LoginPage extends StatefulWidget {
 class _LoginState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  final GlobalKey<FormState> _formKey = new GlobalKey(debugLabel: 'form');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Sample App'),
+          title: Text('MSPR'),
         ),
         body: Padding(
             padding: EdgeInsets.all(10),
@@ -41,26 +41,36 @@ class _LoginState extends State<LoginPage> {
                       style: TextStyle(fontSize: 20),
                     )),
                 Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: TextField(
-                    obscureText: true,
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Mot de passe',
-                    ),
-                  ),
-                ),
+                    child: Form(
+                        key: _formKey,
+                        child: new Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.all(10.0),
+                                child: TextField(
+                                  key: Key('email'),
+                                  controller: emailController,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Email',
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(10.0),
+                                child: TextField(
+                                  key: Key('pwd'),
+                                  obscureText: true,
+                                  controller: passwordController,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Mot de passe',
+                                  ),
+                                ),
+                              ),
+                            ]))),
                 FlatButton(
                   onPressed: () {
                     //forgot password screen
@@ -75,6 +85,7 @@ class _LoginState extends State<LoginPage> {
                       textColor: Colors.white,
                       color: Colors.black,
                       child: Text('Login'),
+                      key: Key('login'),
                       onPressed: () async {
                         var jwt = await getTokenFromLogin(
                             emailController.text, passwordController.text);
@@ -83,14 +94,17 @@ class _LoginState extends State<LoginPage> {
                           final prefs = await SharedPreferences.getInstance();
                           // set value on secure storage
                           prefs.setString('token', jwt);
-                          showSnackBar(context, 'Vous êtes connecté');
+                          showSnackBar(context, 'Vous êtes connecté !');
 
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePage()),
                           );
+                        } else if (emailController.text == '' ||
+                            passwordController.text == '') {
+                          showSnackBar(context, 'Champ vide detecté');
                         } else {
-                          showSnackBar(context, 'Identifiant incorrect');
+                          showSnackBar(context, 'Identifiants incorrect');
                         }
                       },
                     )),

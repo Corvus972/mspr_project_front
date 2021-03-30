@@ -51,7 +51,7 @@ void main() {
       Finder pwd = find.byKey(new Key('pwd'));
 
       await tester.enterText(email, "stanley.jesoph@hotmail.fr");
-      await tester.enterText(pwd, "Baiserdu16");
+      await tester.enterText(pwd, "mspr16");
       await tester.pump();
 
       Finder formWidgetFinder = find.byType(Form);
@@ -69,7 +69,7 @@ void main() {
       Finder pwd = find.byKey(new Key('pwd'));
 
       await tester.enterText(email, "stanley.jesoph@hotmail.fr");
-      await tester.enterText(pwd, "Baiserdu13");
+      await tester.enterText(pwd, "mspr34");
       await tester.pump();
 
       Finder formWidgetFinder = find.byType(Form);

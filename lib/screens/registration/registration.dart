@@ -123,30 +123,29 @@ class _RegistrationState extends State<RegistrationPage> {
                               phoneController.text,
                               emailController.text,
                               passwordController.text);
-                              print(result["status"]);
-                              print(result["body"]);
-                              if(result["status"] == 200){
-                                 showSnackBar(context, 'Bienvenue !', Colors.blue);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginPage()),
-                                  );
-                              }else{
-                                print(result["body"]["email"]);
-                                print(result["body"]["phone_number"]);
-                                showSnackBar(context, 'Une erreur est survenue', Colors.yellow[900]);
-                                /* for (var item in result["body"]) {
+                          print(result["status"]);
+                          print(result["body"]);
+                          if (result["status"] == 201) {
+                            showSnackBar(context, 'Bienvenue !', Colors.blue);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()),
+                            );
+                          } else {
+                            print(result["body"]["email"]);
+                            print(result["body"]["phone_number"]);
+                            showSnackBar(context, 'Une erreur est survenue',
+                                Colors.yellow[900]);
+                            /* for (var item in result["body"]) {
                                   print(item);
                                   if (result["body"].hasOwnProperty(item)) {
                                     showSnackBar(context, 'Une erreur est survenue', Colors.yellow[900]);
                                   }
                                   
                                 } */
-                                
 
-                              }
-                         
+                          }
                         }
                       },
                     )),

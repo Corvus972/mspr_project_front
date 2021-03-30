@@ -43,6 +43,7 @@ void login() {
       GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isTrue);
     });
+
     testWidgets('email and password NOTOK', (WidgetTester tester) async {
       var app = new MediaQuery(
           data: new MediaQueryData(),

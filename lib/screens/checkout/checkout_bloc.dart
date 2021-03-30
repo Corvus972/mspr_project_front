@@ -70,7 +70,7 @@ Widget _incrementButton(Cart item, context) {
     onPressed: () {
       var result = cartRepository.increase(item);
       if (!result) {
-        showSnackBar(context, 'Pas assez de stock');
+        showSnackBar(context, 'Pas assez de stock', Colors.yellow[900]);
       }
     },
     icon: Icon(Icons.add, color: Colors.black),

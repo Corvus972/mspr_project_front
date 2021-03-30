@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-void showSnackBar(BuildContext context, String text) {
+void showSnackBar(BuildContext context, String text, Color customColor) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(text),
-    backgroundColor: Colors.yellow[900],
+    backgroundColor: customColor,
     behavior: SnackBarBehavior.floating,
     duration: const Duration(seconds: 1),
     action: SnackBarAction(

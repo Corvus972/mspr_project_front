@@ -39,7 +39,7 @@ class _AlertState extends State<Alert> {
               bool response = await cartRepository.applyDiscount(text);
               if (response) {
                 Navigator.of(context).pop();
-                showSnackBar(context, "Promotion appliquée");
+                showSnackBar(context, "Promotion appliquée", Colors.blue);
               }
             }
           },

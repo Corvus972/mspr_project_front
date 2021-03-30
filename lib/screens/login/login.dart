@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mspr_project/provider/auth.dart';
 import 'package:mspr_project/repository/user_repository.dart';
 import 'package:mspr_project/screens/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -95,8 +94,7 @@ class _LoginState extends State<LoginPage> {
                           final prefs = await SharedPreferences.getInstance();
                           // set value on secure storage
                           prefs.setString('token', jwt);
-                          authService.isLogged = true;
-                          showSnackBar(context, 'Vous êtes connecté');
+                          showSnackBar(context, 'Vous êtes connecté', Colors.blue);
 
                           Navigator.push(
                             context,
@@ -104,9 +102,9 @@ class _LoginState extends State<LoginPage> {
                           );
                         } else if (emailController.text == '' ||
                             passwordController.text == '') {
-                          showSnackBar(context, 'Champ vide detecté');
+                          showSnackBar(context, 'Champ vide detecté', Colors.yellow[900]);
                         } else {
-                          showSnackBar(context, 'Identifiants incorrect');
+                          showSnackBar(context, 'Identifiants incorrect', Colors.yellow[900]);
                         }
                       },
                     )),
@@ -132,7 +130,7 @@ class _LoginState extends State<LoginPage> {
   }
 
   Future<String> getTokenFromLogin(String email, String password) async {
-    var response = await userRepository.fetchUser(email, password);
+    var response = await userRepository.login(email, password);
     return Future.value(response);
   }
 }

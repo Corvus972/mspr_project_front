@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mspr_project/provider/auth.dart';
 import 'package:mspr_project/repository/cart_repository.dart';
+import 'package:mspr_project/repository/user_repository.dart';
 import 'package:mspr_project/screens/checkout/order_failed.dart';
 import 'package:mspr_project/screens/checkout/order_success.dart';
 import 'package:mspr_project/screens/login/login.dart';
@@ -69,8 +69,8 @@ class _CheckoutState extends State<CheckoutPage> {
                       /// room for the the RaisedButton
                       Expanded(child: checkoutListBuilder(snapshot.data)),
                       StreamBuilder(
-                        stream: authService.getStream,
-          initialData: authService.isLogged,
+                        stream: userRepository.user,
+          initialData: userRepository.isLogged,
           builder: (context, snapshot) {
             print(snapshot.data);
             return snapshot.data == true

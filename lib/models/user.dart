@@ -8,8 +8,6 @@ class User {
   String email;
   String city;
   String phoneNumber;
-  String token;
-  String renewalToken;
 
   User(
       {this.userId,
@@ -20,23 +18,20 @@ class User {
       this.email,
       this.city,
       this.phoneNumber,
-      this.token,
-      this.zipCode,
-      this.renewalToken});
+      this.zipCode});
 
   factory User.fromJson(Map<String, dynamic> responseData) {
+    print(responseData);
     return User(
         userId: responseData['id'],
         lastName: responseData['last_name'],
         firstName: responseData['first_name'],
-        addressLine1: responseData['addressLine1'],
-        addressLine2: responseData['addressLine2'],
+        addressLine1: responseData['address_line_1'],
+        addressLine2: responseData['address_line_2'],
         city: responseData['city'],
         zipCode: responseData['zip_code'],
         email: responseData['email'],
-        phoneNumber: responseData['phone_number'],
-        token: responseData['access_token'],
-        renewalToken: responseData['refresh_token']);
+        phoneNumber: responseData['phone_number']);
   }
 
   get getZipCode => this.zipCode;
@@ -74,12 +69,4 @@ class User {
   get getPhoneNumber => this.phoneNumber;
 
   set setPhoneNumber(phoneNumber) => this.phoneNumber = phoneNumber;
-
-  get getToken => this.token;
-
-  set setToken(token) => this.token = token;
-
-  get getRenewalToken => this.renewalToken;
-
-  set setRenewalToken(renewalToken) => this.renewalToken = renewalToken;
 }

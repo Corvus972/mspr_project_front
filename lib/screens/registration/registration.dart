@@ -20,7 +20,7 @@ class _RegistrationState extends State<RegistrationPage> {
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     
@@ -170,7 +170,6 @@ class _RegistrationState extends State<RegistrationPage> {
                             }else{
                               showSnackBar(context, 'Vos deux mots de passes sont différents', Colors.yellow[900]);
                             }
-                         
                         }
                       },
                     )),

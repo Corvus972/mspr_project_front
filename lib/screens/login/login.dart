@@ -94,7 +94,8 @@ class _LoginState extends State<LoginPage> {
                           final prefs = await SharedPreferences.getInstance();
                           // set value on secure storage
                           prefs.setString('token', jwt);
-                          showSnackBar(context, 'Vous êtes connecté', Colors.blue);
+                          showSnackBar(
+                              context, 'Vous êtes connecté', Colors.blue);
 
                           Navigator.push(
                             context,
@@ -102,9 +103,11 @@ class _LoginState extends State<LoginPage> {
                           );
                         } else if (emailController.text == '' ||
                             passwordController.text == '') {
-                          showSnackBar(context, 'Champ vide detecté', Colors.yellow[900]);
+                          showSnackBar(context, 'Champ vide detecté',
+                              Colors.yellow[900]);
                         } else {
-                          showSnackBar(context, 'Identifiants incorrect', Colors.yellow[900]);
+                          showSnackBar(context, 'Identifiants incorrect',
+                              Colors.yellow[900]);
                         }
                       },
                     )),

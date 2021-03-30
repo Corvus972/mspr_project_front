@@ -137,7 +137,7 @@ class _BottomNavState extends State<BottomNav> {
 
   void onTabTappedIfLogin(int index) {
     setState(() {
-      _currentIndex = index;
+      _currentIndex = 0;
     });
 
     switch (itemsListIfLogin[index].label) {

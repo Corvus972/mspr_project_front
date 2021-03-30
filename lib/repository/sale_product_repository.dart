@@ -9,8 +9,8 @@ class SalesProductRepository {
 
   Observable<String> get salesproduct => _salesProductFetcher.stream;
 
-  Future<String> fetchSaleProduct(idProduct) async {
-    String salesProductResponse = await _provider.fetchSaleProduct(idProduct);
+  Future<Map> fetchSaleProduct(String idProduct) async {
+    Map salesProductResponse = await _provider.fetchSaleProduct(idProduct);
     return salesProductResponse;
   }
 

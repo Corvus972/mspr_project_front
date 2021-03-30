@@ -68,7 +68,7 @@ class Header extends StatelessWidget {
                       final prefs = await SharedPreferences.getInstance();
                       prefs.remove("token");
                       authService.isLogged = false;
-                      showSnackBar(context, 'Vous êtes déconnecté');
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(

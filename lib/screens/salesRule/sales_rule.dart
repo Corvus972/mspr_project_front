@@ -88,9 +88,10 @@ class _SalesRuleState extends State<SalesRulePage> {
   getCouponData(String coupon) async {
     var ruleProductData = await salesProductRepository.fetchSaleProduct(coupon);
     if (ruleProductData["status"] == 401) {
-      showSnackBar(context, 'Aucun Promotion trouvé');
+      showSnackBar(context, 'Aucun promotion trouvé', Colors.red);
       return "Votre qr code ne correspond pas";
     } else {
+      showSnackBar(context, 'Promotion trouvé', Colors.yellow[900]);
       return ruleProductData["body"][0]["coupon_code"] +
           " associé à " +
           ruleProductData["body"][0]["name"];

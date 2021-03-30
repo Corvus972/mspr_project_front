@@ -96,7 +96,6 @@ class _LoginState extends State<LoginPage> {
                           // set value on secure storage
                           prefs.setString('token', jwt);
                           authService.isLogged = true;
-                          showSnackBar(context, 'Vous êtes connecté');
 
                           Navigator.push(
                             context,
@@ -104,10 +103,7 @@ class _LoginState extends State<LoginPage> {
                           );
                         } else if (emailController.text == '' ||
                             passwordController.text == '') {
-                          showSnackBar(context, 'Champ vide detecté');
-                        } else {
-                          showSnackBar(context, 'Identifiants incorrect');
-                        }
+                        } else {}
                       },
                     )),
                 Container(

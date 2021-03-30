@@ -4,6 +4,7 @@ import 'package:mspr_project/models/order.dart';
 import 'package:mspr_project/models/product.dart';
 import 'package:mspr_project/models/sales_rule.dart';
 import 'package:mspr_project/models/token.dart';
+import 'package:mspr_project/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiProvider {
@@ -57,22 +58,15 @@ class ApiProvider {
       var token = Token.fromJson(json.decode(res.body));
       return token.access;
     }
+    return null;
   }
 
-  Future<String> registerUser(
-      String username, String phone, String email, String password) async {
-    var res = await client.post("${_baseUrl}users/", body: {
-      "email": email,
-      "username": username,
-      "phone_number": phone,
-      "password": password
-    });
-    if (res.statusCode == 200) {
-      print("reponse register => " + res.body);
-      return res.body;
-    }
-    print(res.body);
-    return null;
+  Future<Map> registerUser(Map data) async {
+    var res = await client.post("${_baseUrl}users/", body: json.encode(data),
+    headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      });
+    return {"status":res.statusCode, "body":json.decode(res.body)};
   }
 
   Future<String> getToken() async {
@@ -80,27 +74,40 @@ class ApiProvider {
     var token = prefs.getString('token');
     return Future.value(token);
   }
-
-  Future<String> editUser(String username, String phone, String addressLine1,
-      String addressLine2, String city, String zipCode) async {
+  
+  Future<User> fetchUserData() async {
     var token = await getToken();
 
-    var res = await client.put("${_baseUrl}me/", body: {
-      "username": username,
-      "phone_number": phone,
-      "addressLine1": addressLine1,
-      "addressLine2": addressLine2,
-      "city": city,
-      "zipCode": zipCode
-    });
+    var response = await client.get("${_baseUrl}me/", 
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        "Authorization": "Bearer $token"
+      }
+    );
+
+    if (response.statusCode == 200) {
+      //Return decoded response
+      return User.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load user data');
+    }
+  }
+
+  Future<bool> editUser(Map data) async {
+    var token = await getToken();
+
+    var res = await client.put("${_baseUrl}me/",   
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        "Authorization": "Bearer $token"
+      },
+      body: json.encode(data)
+    );
 
     if (res.statusCode == 200) {
-      print("reponse register => " + res.body);
-      return res.body;
+      return true;
     }
-
-    print(res.body);
-    return null;
+    return false;
   }
 
   Future<bool> sendOrder(Map<String, List> data) async {

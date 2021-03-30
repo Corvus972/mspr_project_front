@@ -9,7 +9,6 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationState extends State<RegistrationPage> {
-  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -49,17 +48,6 @@ class _RegistrationState extends State<RegistrationPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            child: TextField(
-                              key: Key('username'),
-                              controller: usernameController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Nom utilisateur',
-                              ),
-                            ),
-                          ),
                           Container(
                             padding: EdgeInsets.all(10),
                             child: TextField(
@@ -127,21 +115,38 @@ class _RegistrationState extends State<RegistrationPage> {
                       color: Colors.black,
                       child: Text('Créer un compte'),
                       key: Key('Register'),
-                      onPressed: () {
+                      onPressed: () async {
                         if (passwordConfirmController.text
                                 .compareTo(passwordController.text) ==
                             0) {
-                          userRepository.registerUser(
-                              usernameController.text,
+                          var result = await userRepository.registerUser(
                               phoneController.text,
                               emailController.text,
                               passwordController.text);
-                          showSnackBar(context, 'Bienvenue !');
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()),
-                          );
+                              print(result["status"]);
+                              print(result["body"]);
+                              if(result["status"] == 200){
+                                 showSnackBar(context, 'Bienvenue !', Colors.blue);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()),
+                                  );
+                              }else{
+                                print(result["body"]["email"]);
+                                print(result["body"]["phone_number"]);
+                                showSnackBar(context, 'Une erreur est survenue', Colors.yellow[900]);
+                                /* for (var item in result["body"]) {
+                                  print(item);
+                                  if (result["body"].hasOwnProperty(item)) {
+                                    showSnackBar(context, 'Une erreur est survenue', Colors.yellow[900]);
+                                  }
+                                  
+                                } */
+                                
+
+                              }
+                         
                         }
                       },
                     )),

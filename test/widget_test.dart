@@ -14,11 +14,6 @@ import 'package:mspr_project/screens/salesRule/sales_rule.dart';
 import 'package:mspr_project/repository/sale_product_repository.dart';
 
 void main() {
-  Future<String> getCouponData(String coupon) async {
-    var response = await salesProductRepository.fetchSaleProduct(coupon);
-    return Future.value(response);
-  }
-
   group('LoginPage', () {
     testWidgets('empty email and password', (WidgetTester tester) async {
       // add it to the widget tester

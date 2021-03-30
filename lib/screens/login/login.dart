@@ -94,6 +94,7 @@ class _LoginState extends State<LoginPage> {
                           final prefs = await SharedPreferences.getInstance();
                           // set value on secure storage
                           prefs.setString('token', jwt);
+                          authService.isLogged = true;
                           showSnackBar(context, 'Vous êtes connecté', Colors.blue);
 
                           Navigator.push(

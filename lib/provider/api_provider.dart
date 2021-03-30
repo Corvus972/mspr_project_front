@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiProvider {
   Client client = Client();
-  
+
   final _baseUrl = "http://10.0.2.2:8000/";
 
   Future<List<Product>> fetchProducts() async {
@@ -38,19 +38,17 @@ class ApiProvider {
     }
   }
 
-  Future<String> fetchSaleProduct(String idProduct) async {
-    final response = await client.get("${_baseUrl}ruleproduct/" + idProduct);
-    String couponResponse;
-    if (response.statusCode == 200) {
-      List data = json.decode(response.body);
-      couponResponse = data[0]['coupon_code'].toString() +
-          " " +
-          "associé à " +
-          data[0]['name'];
-    } else {
-      throw Exception('Failed to load Rule for product');
+  Future<Map> fetchSaleProduct(String idProduct) async {
+    final response = await client.get("${_baseUrl}ruleproduct/" + idProduct,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        });
+    var dataRule = json.decode(response.body) as List;
+    if (dataRule.length == 0) {
+      return {"status": 401, "body": "erreur"};
     }
-    return couponResponse;
+
+    return {"status": response.statusCode, "body": json.decode(response.body)};
   }
 
   Future<String> attemptLogIn(String username, String password) async {
@@ -70,7 +68,6 @@ class ApiProvider {
       });
     return {"status":res.statusCode, "body":json.decode(res.body)};
   }
-
 
   Future<String> getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -117,14 +114,12 @@ class ApiProvider {
     bool rst = false;
 
     var token = await getToken();
-    var response = await client.post(
-      "${_baseUrl}orders/", 
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        "Authorization": "Bearer $token"
-      },
-      body:json.encode(data)
-      );
+    var response = await client.post("${_baseUrl}orders/",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": "Bearer $token"
+        },
+        body: json.encode(data));
 
     if (response.statusCode == 201) {
       rst = true;
@@ -132,14 +127,14 @@ class ApiProvider {
 
     return Future.value(rst);
   }
+
   Future<List<Order>> fetchOrders() async {
     var token = await getToken();
-    final response = await client.get(
-        "${_baseUrl}orders/", 
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        "Authorization": "Bearer $token"
-      }); 
+    final response =
+        await client.get("${_baseUrl}orders/", headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      "Authorization": "Bearer $token"
+    });
 
     if (response.statusCode == 200) {
       //Return decoded response

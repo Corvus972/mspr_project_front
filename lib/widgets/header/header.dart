@@ -77,7 +77,6 @@ class Header extends StatelessWidget {
                       } else {
                         showSnackBar(context, 'Déconnexion impossible', Colors.red);
                       }
-                      
                     },
                     icon: Icon(Icons.logout));
               } else {

@@ -47,7 +47,6 @@ class ApiProvider {
     if (dataRule.length == 0) {
       return {"status": 401, "body": "erreur"};
     }
-
     return {"status": response.statusCode, "body": json.decode(response.body)};
   }
 
@@ -62,11 +61,12 @@ class ApiProvider {
   }
 
   Future<Map> registerUser(Map data) async {
-    var res = await client.post("${_baseUrl}users/", body: json.encode(data),
-    headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8'
-      });
-    return {"status":res.statusCode, "body":json.decode(res.body)};
+    var res = await client.post("${_baseUrl}users/",
+        body: json.encode(data),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        });
+    return {"status": res.statusCode, "body": json.decode(res.body)};
   }
 
   Future<String> getToken() async {
@@ -74,16 +74,14 @@ class ApiProvider {
     var token = prefs.getString('token');
     return Future.value(token);
   }
-  
+
   Future<User> fetchUserData() async {
     var token = await getToken();
 
-    var response = await client.get("${_baseUrl}me/", 
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        "Authorization": "Bearer $token"
-      }
-    );
+    var response = await client.get("${_baseUrl}me/", headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      "Authorization": "Bearer $token"
+    });
 
     if (response.statusCode == 200) {
       //Return decoded response
@@ -96,13 +94,12 @@ class ApiProvider {
   Future<bool> editUser(Map data) async {
     var token = await getToken();
 
-    var res = await client.put("${_baseUrl}me/",   
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        "Authorization": "Bearer $token"
-      },
-      body: json.encode(data)
-    );
+    var res = await client.put("${_baseUrl}me/",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": "Bearer $token"
+        },
+        body: json.encode(data));
 
     if (res.statusCode == 200) {
       return true;

@@ -16,7 +16,7 @@ void registration() {
 
       await tester.enterText(pwd, "mspR123");
       await tester.enterText(confirmPwd, "mspR123");
-      await tester.enterText(email, "stanley.jesoph@outlook.com");
+      await tester.enterText(email, "stanley.jesoph@gmail.com");
       await tester.enterText(phone, "0649782808");
       await tester.pump();
 

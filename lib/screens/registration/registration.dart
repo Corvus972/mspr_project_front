@@ -23,7 +23,6 @@ class _RegistrationState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: AppBar(
           title: Text('Retour'),
@@ -64,7 +63,7 @@ class _RegistrationState extends State<RegistrationPage> {
                                   return '10 charactères';
                                 }
                                 return null;
-                                },
+                              },
                               key: Key('phone'),
                               controller: phoneController,
                               decoration: InputDecoration(
@@ -82,7 +81,7 @@ class _RegistrationState extends State<RegistrationPage> {
                                   return 'email non valide';
                                 }
                                 return null;
-                                },
+                              },
                               key: Key('email'),
                               controller: emailController,
                               decoration: InputDecoration(
@@ -95,11 +94,11 @@ class _RegistrationState extends State<RegistrationPage> {
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                             child: TextFormField(
                               validator: (value) {
-                                if (value.length > 3 || value.isEmpty) {
+                                if (value.length < 3 || value.isEmpty) {
                                   return '2 charactères minimum';
                                 }
                                 return null;
-                                },
+                              },
                               key: Key('pwd'),
                               obscureText: true,
                               controller: passwordController,
@@ -117,7 +116,7 @@ class _RegistrationState extends State<RegistrationPage> {
                                   return '2 charactères minimum';
                                 }
                                 return null;
-                                },
+                              },
                               key: Key('confirm_password'),
                               obscureText: true,
                               controller: passwordConfirmController,
@@ -149,27 +148,32 @@ class _RegistrationState extends State<RegistrationPage> {
                       child: Text('Créer un compte'),
                       key: Key('Register'),
                       onPressed: () async {
-
                         if (_formKey.currentState.validate() != false) {
-                        if (passwordConfirmController.text.compareTo(passwordController.text) == 0) {
-                          var result = await userRepository.registerUser(
-                              phoneController.text,
-                              emailController.text,
-                              passwordController.text);
-                              if(result["status"] == 201){
-                                 showSnackBar(context, 'Bienvenue !', Colors.blue);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginPage()),
-                                  );
-                              }else{
-                                print(result["body"]["phone_number"]);
-                                showSnackBar(context, 'Email déjà utilisé', Colors.yellow[900]);
-                              }
-                            }else{
-                              showSnackBar(context, 'Vos deux mots de passes sont différents', Colors.yellow[900]);
+                          if (passwordConfirmController.text
+                                  .compareTo(passwordController.text) ==
+                              0) {
+                            var result = await userRepository.registerUser(
+                                phoneController.text,
+                                emailController.text,
+                                passwordController.text);
+                            if (result["status"] == 201) {
+                              showSnackBar(context, 'Bienvenue !', Colors.blue);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                              );
+                            } else {
+                              print(result["body"]["phone_number"]);
+                              showSnackBar(context, 'Email déjà utilisé',
+                                  Colors.yellow[900]);
                             }
+                          } else {
+                            showSnackBar(
+                                context,
+                                'Vos deux mots de passes sont différents',
+                                Colors.yellow[900]);
+                          }
                         }
                       },
                     )),

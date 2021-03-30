@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:mspr_project/models/cart.dart';
 import 'package:mspr_project/models/order.dart';
 import 'package:mspr_project/models/product_ordered.dart';
 import 'package:mspr_project/provider/api_provider.dart';
@@ -17,6 +16,7 @@ class OrderProvider {
     List<Order> orderResponse = await _provider.fetchOrders();
     _orderFetcher.sink.add(orderResponse);
   }
+  
 
 
   void dispose() {

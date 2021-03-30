@@ -14,8 +14,16 @@ class _RegistrationState extends State<RegistrationPage> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   final GlobalKey<FormState> _formKey = new GlobalKey(debugLabel: 'form');
+
+  bool isValidEmail(email) {
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(email);
+  }
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         appBar: AppBar(
           title: Text('Retour'),
@@ -50,7 +58,13 @@ class _RegistrationState extends State<RegistrationPage> {
                         children: <Widget>[
                           Container(
                             padding: EdgeInsets.all(10),
-                            child: TextField(
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value.length < 10 || value.isEmpty) {
+                                  return '10 charactères';
+                                }
+                                return null;
+                                },
                               key: Key('phone'),
                               controller: phoneController,
                               decoration: InputDecoration(
@@ -61,7 +75,14 @@ class _RegistrationState extends State<RegistrationPage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(10),
-                            child: TextField(
+                            child: TextFormField(
+                              validator: (value) {
+                                print(isValidEmail(value));
+                                if (!isValidEmail(value) || value.isEmpty) {
+                                  return 'email non valide';
+                                }
+                                return null;
+                                },
                               key: Key('email'),
                               controller: emailController,
                               decoration: InputDecoration(
@@ -72,7 +93,13 @@ class _RegistrationState extends State<RegistrationPage> {
                           ),
                           Container(
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                            child: TextField(
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value.length > 3 || value.isEmpty) {
+                                  return '2 charactères minimum';
+                                }
+                                return null;
+                                },
                               key: Key('pwd'),
                               obscureText: true,
                               controller: passwordController,
@@ -84,7 +111,13 @@ class _RegistrationState extends State<RegistrationPage> {
                           ),
                           Container(
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                            child: TextField(
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value.length < 2 || value.isEmpty) {
+                                  return '2 charactères minimum';
+                                }
+                                return null;
+                                },
                               key: Key('confirm_password'),
                               obscureText: true,
                               controller: passwordConfirmController,
@@ -116,16 +149,14 @@ class _RegistrationState extends State<RegistrationPage> {
                       child: Text('Créer un compte'),
                       key: Key('Register'),
                       onPressed: () async {
-                        if (passwordConfirmController.text
-                                .compareTo(passwordController.text) ==
-                            0) {
+
+                        if (_formKey.currentState.validate() != false) {
+                        if (passwordConfirmController.text.compareTo(passwordController.text) == 0) {
                           var result = await userRepository.registerUser(
                               phoneController.text,
                               emailController.text,
                               passwordController.text);
-                              print(result["status"]);
-                              print(result["body"]);
-                              if(result["status"] == 200){
+                              if(result["status"] == 201){
                                  showSnackBar(context, 'Bienvenue !', Colors.blue);
                                   Navigator.push(
                                     context,
@@ -133,19 +164,12 @@ class _RegistrationState extends State<RegistrationPage> {
                                         builder: (context) => LoginPage()),
                                   );
                               }else{
-                                print(result["body"]["email"]);
                                 print(result["body"]["phone_number"]);
-                                showSnackBar(context, 'Une erreur est survenue', Colors.yellow[900]);
-                                /* for (var item in result["body"]) {
-                                  print(item);
-                                  if (result["body"].hasOwnProperty(item)) {
-                                    showSnackBar(context, 'Une erreur est survenue', Colors.yellow[900]);
-                                  }
-                                  
-                                } */
-                                
-
+                                showSnackBar(context, 'Email déjà utilisé', Colors.yellow[900]);
                               }
+                            }else{
+                              showSnackBar(context, 'Vos deux mots de passes sont différents', Colors.yellow[900]);
+                            }
                          
                         }
                       },

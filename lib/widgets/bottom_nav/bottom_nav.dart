@@ -58,7 +58,7 @@ class _BottomNavState extends State<BottomNav> {
                   selectedItemColor: Colors.white,
                   type: BottomNavigationBarType.fixed,
                   onTap: onTabTappedIfLogin, // new
-                  currentIndex: _currentIndex, // new
+                  currentIndex: 0, // new
                   items: itemsListIfLogin,
                 );
               } else {
@@ -68,7 +68,7 @@ class _BottomNavState extends State<BottomNav> {
                   selectedItemColor: Colors.white,
                   type: BottomNavigationBarType.fixed,
                   onTap: onTabTapped, // new
-                  currentIndex: _currentIndex, // new
+                  currentIndex: 0 , // new
                   items: itemsList,
                 );
               }
@@ -76,9 +76,6 @@ class _BottomNavState extends State<BottomNav> {
   }
 
   void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
 
     switch (itemsList[index].label) {
       case "Promotions":

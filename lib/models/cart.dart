@@ -1,9 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:mspr_project/models/product.dart';
 
-/*    */
-/* @JsonSerializable()
-@CustomDateTimeConverter() */
 class Cart {
   String productId;
   int quantity;
